@@ -61,4 +61,8 @@ sidebars:
 permalink: pretty
 
 theme: jekyll-theme-cayman
+<<<<<<< HEAD
 baseurl: /jsmltools/
+=======
+baseurl: /jsmltools/
+>>>>>>> 79dfe5ceb0dfd68fc02c38e25a61f8ddbd367174

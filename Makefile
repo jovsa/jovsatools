@@ -14,6 +14,7 @@ docs: $(SRC)
 	touch docs
 
 test:
+	ipython kernel install --name "python3" --user
 	nbdev_test_nbs
 
 release: pypi

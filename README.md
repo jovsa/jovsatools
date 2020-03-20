@@ -22,5 +22,3 @@ say_hello('john')
 Notes:
 * To setup local env run `make local_env`
 * source the venv and you are all set.
-
-

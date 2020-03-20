@@ -10,6 +10,5 @@ doc_url = "https://jovsa.github.io/jsmltools/"
 
 git_url = "https://github.com/jovsa/jsmltools/tree/master/"
 
-
 def custom_doc_links(name):
     return None

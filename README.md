@@ -1,5 +1,5 @@
-# Project name here
-> Summary description here.
+# Welcome to JSMLTOOLS
+> this is just a tests ......
 
 
 This file will become your README and also the index of your documentation.
@@ -13,12 +13,14 @@ This file will become your README and also the index of your documentation.
 Fill me in please! Don't forget code examples:
 
 ```
-1+1
+say_hello('john')
 ```
 
+    hi there: john
 
 
-
-    2
+Notes:
+* To setup local env run `make local_env`
+* source the venv and you are all set.
 
 

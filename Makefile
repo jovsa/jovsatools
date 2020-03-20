@@ -1,4 +1,5 @@
 SRC = $(wildcard nbs/*.ipynb)
+VENV = venv-jsmltools
 
 all: jsmltools docs
 
@@ -14,7 +15,6 @@ docs: $(SRC)
 	touch docs
 
 test:
-	ipython kernel install --name "python3" --user
 	nbdev_test_nbs
 
 release: pypi
@@ -28,3 +28,27 @@ dist: clean
 
 clean:
 	rm -rf dist
+
+format:
+	black . -v
+
+
+# create local env
+local_env:
+	# delete old venv (if it exists)
+	if [ -d $(VENV) ]; then rm -r $(VENV); fi
+	# create venv
+	python3 -m virtualenv $(VENV)
+	# script that:
+	# 	1 - sources venv
+	# 	2 - install pacages from settings.ini (via setup.py)
+	#	3 - creates jupyter kernel used to run nbdev scripts.
+	# 		Note: kernel is names `python3` since this is the
+	# 		default kernel name used in nbdev.
+	#		nbdev code link: https://github.com/fastai/nbdev/blob/master/nbdev/test.py#L77
+	( \
+		source $(VENV)/bin/activate; \
+		pip install .; \
+		ipython kernel install --name "python3" --user; \
+	)
+	echo "source $(VENV) and you are all set!"

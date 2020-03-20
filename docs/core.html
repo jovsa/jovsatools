@@ -47,6 +47,59 @@ description: "API details."
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> nbdev_test_nbs
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>testing: /Users/jovan.sardinha/Github_personal/jsmltools/nbs/00_core.ipynb
+testing: /Users/jovan.sardinha/Github_personal/jsmltools/nbs/index.ipynb
+Error in /Users/jovan.sardinha/Github_personal/jsmltools/nbs/index.ipynb:
+An error occurred while executing the following cell:
+------------------
+#hide
+from jsmltools.core import *
+------------------
+
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-cbb0d5659a7a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">#hide</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> jsmltools<span class="ansi-blue-fg">.</span>core <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;jsmltools&#39;
+ModuleNotFoundError: No module named &#39;jsmltools&#39;
+
+Traceback (most recent call last):
+  File &#34;/Users/jovan.sardinha/Github_personal/jsmltools/venv-jsmltools/bin/nbdev_test_nbs&#34;, line 8, in &lt;module&gt;
+    sys.exit(nbdev_test_nbs())
+  File &#34;/Users/jovan.sardinha/Github_personal/jsmltools/venv-jsmltools/lib/python3.7/site-packages/fastscript/core.py&#34;, line 73, in _f
+    func(**args.__dict__)
+  File &#34;/Users/jovan.sardinha/Github_personal/jsmltools/venv-jsmltools/lib/python3.7/site-packages/nbdev/cli.py&#34;, line 70, in nbdev_test_nbs
+    raise Exception(msg + &#39;\n&#39;.join([f.name for p,f in zip(passed,files) if not p]))
+Exception: The following notebooks failed:
+index.ipynb
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
     {% endraw %}
 </div>
  

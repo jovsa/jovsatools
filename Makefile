@@ -56,5 +56,8 @@ local_env:
 	)
 	echo "source $(VENV) and you are all set!"
 
+trust:
+	nbdev_install_git_hooks
+
 format:
 	black . -v

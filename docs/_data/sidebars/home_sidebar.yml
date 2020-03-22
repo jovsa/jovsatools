@@ -11,7 +11,7 @@ entries:
       url: /
     - output: web,pdf
       title: Hello_nbdev
-      url: /core
+      url: /hello_nbdev
     output: web
     title: jsmltools
   output: web

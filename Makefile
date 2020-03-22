@@ -1,5 +1,7 @@
+#####################################################################
+#						AUTO GENERATED COMMANDS
+#####################################################################
 SRC = $(wildcard nbs/*.ipynb)
-VENV = venv-jsmltools
 
 all: jsmltools docs
 
@@ -32,6 +34,10 @@ clean:
 format:
 	black . -v
 
+#####################################################################
+#							CUSTOM COMMANDS
+#####################################################################
+VENV = venv-jsmltools
 
 # create local env
 local_env:

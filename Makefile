@@ -31,9 +31,6 @@ dist: clean
 clean:
 	rm -rf dist
 
-format:
-	black . -v
-
 #####################################################################
 #							CUSTOM COMMANDS
 #####################################################################
@@ -58,3 +55,6 @@ local_env:
 		ipython kernel install --name "python3" --user; \
 	)
 	echo "source $(VENV) and you are all set!"
+
+format:
+	black . -v

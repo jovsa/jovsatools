@@ -10,8 +10,8 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Core
-      url: /core
+      title: Hello_nbdev
+      url: /hello_nbdev
     output: web
     title: jsmltools
   output: web

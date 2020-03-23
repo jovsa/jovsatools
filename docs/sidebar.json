@@ -2,6 +2,6 @@
   "jsmltools": {
     "Overview": "/",
     "Custom Tensorflow Training": "/custom_tf_training",
-    "Hello_nbdev": "/hello_nbdev"
+    "_notebook_template": "/hello_nbdev"
   }
 }

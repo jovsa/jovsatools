@@ -13,7 +13,7 @@ entries:
       title: Custom Tensorflow Training
       url: /custom_tf_training
     - output: web,pdf
-      title: Hello_nbdev
+      title: _notebook_template
       url: /hello_nbdev
     output: web
     title: jsmltools

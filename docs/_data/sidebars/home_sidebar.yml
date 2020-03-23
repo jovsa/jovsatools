@@ -10,6 +10,9 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: Custom Tensorflow Training
+      url: /custom_tf_training
+    - output: web,pdf
       title: Hello_nbdev
       url: /hello_nbdev
     output: web

@@ -49,7 +49,7 @@
     * (-) Only python will be used in notebooks (for now and because of nbdev limitation).
         * (mitigation): write all non-supported use case directly in the `lib` folder.
 
-## Refrences
+## References
 
 * https://notes.andymatuschak.org/
     * Metacognitive supports as cognitive scaffolding

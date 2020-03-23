@@ -22,8 +22,9 @@
 * Using [nbdev](https://github.com/fastai/nbdev) as a base structure
     * (+) Will use this to get something off the ground. However, will not tie too deeply into this strcuture (if I need to swap this out).
     * (+) Nice literate env
-    * (+) Will get PyPI functionality for free
-    * (+) Will get docs functionality for free
+    * (+) Get PyPI functionality out of the box
+    * (+) Get docs functionality out of the box
+    * (+) Get unit test functionality out of the box
     * (-) Might need to contribute to nbdev to add functionality
         * (mitigation) clone an internal verison of nbdev
         * (mitigation) write all non-supported use case directly in the `lib` folder

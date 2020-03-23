@@ -38,7 +38,7 @@
     * (+) [Hyrum's Law](https://www.hyrumslaw.com/)
     * (-) hard for others to understand/follow
         * (migtigation) build tools to show dependency
-    * (+) allow for 
+    * (+) allow for incrementability
 * [Progressive disclosure of complexity](https://twitter.com/fchollet/status/1231285340335267840)
     * (+) easy to start
     * (+) allow for rough initial ideas to stable APIs to co-exist

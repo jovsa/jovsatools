@@ -61,3 +61,6 @@ trust:
 
 format:
 	black . -v
+
+update:
+	nbdev_build_lib && nbdev_build_docs && nbdev_clean_nbs && nbdev_test_nbs

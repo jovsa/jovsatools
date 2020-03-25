@@ -4,7 +4,7 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"say_hello": "hello_nbdev.ipynb"}
 
-modules = ["hello_nbdev.py"]
+modules = ["_notebook_template.py"]
 
 doc_url = "https://jovsa.github.io/jsmltools/"
 

@@ -22,8 +22,9 @@
 * Using [nbdev](https://github.com/fastai/nbdev) as a base structure
     * (+) Will use this to get something off the ground. However, will not tie too deeply into this strcuture (if I need to swap this out).
     * (+) Nice literate env
-    * (+) Will get PyPI functionality for free
-    * (+) Will get docs functionality for free
+    * (+) Get PyPI functionality out of the box
+    * (+) Get docs functionality out of the box
+    * (+) Get unit test functionality out of the box
     * (-) Might need to contribute to nbdev to add functionality
         * (mitigation) clone an internal verison of nbdev
         * (mitigation) write all non-supported use case directly in the `lib` folder
@@ -37,7 +38,7 @@
     * (+) [Hyrum's Law](https://www.hyrumslaw.com/)
     * (-) hard for others to understand/follow
         * (migtigation) build tools to show dependency
-    * (+) allow for 
+    * (+) allow for incrementability
 * [Progressive disclosure of complexity](https://twitter.com/fchollet/status/1231285340335267840)
     * (+) easy to start
     * (+) allow for rough initial ideas to stable APIs to co-exist
@@ -48,9 +49,8 @@
     * (-) Only python will be used in notebooks (for now and because of nbdev limitation).
         * (mitigation): write all non-supported use case directly in the `lib` folder.
 
-## Refrences
-
-* https://notes.andymatuschak.org/
+## References
+* [Andy M. Notes](https://notes.andymatuschak.org/) 
     * Metacognitive supports as cognitive scaffolding
         * by contraint and blog by narritive
     * [Incremental Writing](https://supermemo.guru/wiki/Incremental_writing)

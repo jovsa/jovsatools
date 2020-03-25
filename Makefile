@@ -61,3 +61,12 @@ trust:
 
 format:
 	black . -v
+
+update: $(SRC)
+	nbdev_build_lib && nbdev_build_docs && nbdev_clean_nbs && nbdev_test_nbs
+
+run_docs_server: docs_serve
+	# source: https://gorails.com/setup/osx/10.9-mavericks
+	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+	source ~/.bash_profile
+	docs_serve

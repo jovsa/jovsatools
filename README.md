@@ -50,8 +50,7 @@
         * (mitigation): write all non-supported use case directly in the `lib` folder.
 
 ## References
-
-* https://notes.andymatuschak.org/
+* [Andy M. Notes](https://notes.andymatuschak.org/) 
     * Metacognitive supports as cognitive scaffolding
         * by contraint and blog by narritive
     * [Incremental Writing](https://supermemo.guru/wiki/Incremental_writing)

@@ -10,11 +10,11 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: Title
+      url: /autoregressive_models
+    - output: web,pdf
       title: Custom Tensorflow Training
       url: /custom_tf_training
-    - output: web,pdf
-      title: _notebook_template
-      url: /hello_nbdev
     output: web
     title: jsmltools
   output: web

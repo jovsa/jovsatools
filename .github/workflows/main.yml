@@ -2,7 +2,7 @@ name: CI
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ufoym/deepo
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-python@v1

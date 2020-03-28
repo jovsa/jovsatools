@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Title
+      title: Autoregressive Models
       url: /autoregressive_models
     - output: web,pdf
       title: Custom Tensorflow Training

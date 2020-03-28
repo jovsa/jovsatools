@@ -1,12 +1,12 @@
 ---
 
-title: Title
+title: Autoregressive Models
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "summary"
-description: "summary"
+summary: "Exploration in autoregressive models"
+description: "Exploration in autoregressive models"
 ---
 <!--
 
@@ -29,7 +29,7 @@ description: "summary"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Autoregressive-Models">Autoregressive Models<a class="anchor-link" href="#Autoregressive-Models"> </a></h1><p>Go to <strong>Runtime -&gt; Change runtime type</strong> and make sure <strong>Hardward accelerator</strong> is set to <strong>GPU</strong></p>
+<p>Go to <strong>Runtime -&gt; Change runtime type</strong> and make sure <strong>Hardward accelerator</strong> is set to <strong>GPU</strong></p>
 
 </div>
 </div>
@@ -61,34 +61,34 @@ description: "summary"
 <pre>sed: illegal option -- r
 usage: sed script [-Ealn] [-i extension] [file ...]
        sed [-Ealn] [-i extension] [-e script] ... [-f script_file] ... [file ...]
---2020-03-26 23:15:01--  https://docs.google.com/uc?export=download&amp;confirm=&amp;id=17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m
-Resolving docs.google.com (docs.google.com)... 172.217.12.46
-Connecting to docs.google.com (docs.google.com)|172.217.12.46|:443...connected.
+--2020-03-28 16:31:21--  https://docs.google.com/uc?export=download&amp;confirm=&amp;id=17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m
+Resolving docs.google.com (docs.google.com)... 172.217.14.174
+Connecting to docs.google.com (docs.google.com)|172.217.14.174|:443...connected.
 HTTP request sent, awaiting response...302 Moved Temporarily
-Location: https://doc-0s-7c-docs.googleusercontent.com/docs/securesc/foke32ft9qu610gjkgcvjmnslqqohin0/43b2kt83417oeeg4no1flf2f0u6oo70t/1585289700000/06419056966375271799/14037397646421944821Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download [following]
---2020-03-26 23:15:01--  https://doc-0s-7c-docs.googleusercontent.com/docs/securesc/foke32ft9qu610gjkgcvjmnslqqohin0/43b2kt83417oeeg4no1flf2f0u6oo70t/1585289700000/06419056966375271799/14037397646421944821Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download
-Resolving doc-0s-7c-docs.googleusercontent.com (doc-0s-7c-docs.googleusercontent.com)... 172.217.1.129, 172.217.9.1
-Connecting to doc-0s-7c-docs.googleusercontent.com (doc-0s-7c-docs.googleusercontent.com)|172.217.1.129|:443...connected.
+Location: https://doc-0g-6c-docs.googleusercontent.com/docs/securesc/o3og71a91qgol1cua0rboq32a40qrdlt/v560us4i1njt4vb1u7lg9hf3gop8mus9/1585438275000/06419056966375271799/14803611712605495394Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download [following]
+--2020-03-28 16:31:21--  https://doc-0g-6c-docs.googleusercontent.com/docs/securesc/o3og71a91qgol1cua0rboq32a40qrdlt/v560us4i1njt4vb1u7lg9hf3gop8mus9/1585438275000/06419056966375271799/14803611712605495394Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download
+Resolving doc-0g-6c-docs.googleusercontent.com (doc-0g-6c-docs.googleusercontent.com)... 216.58.194.129
+Connecting to doc-0g-6c-docs.googleusercontent.com (doc-0g-6c-docs.googleusercontent.com)|216.58.194.129|:443...connected.
 HTTP request sent, awaiting response...302 Found
-Location: https://docs.google.com/nonceSigner?nonce=ecgqocgdvr23e&amp;continue=https://doc-0s-7c-docs.googleusercontent.com/docs/securesc/foke32ft9qu610gjkgcvjmnslqqohin0/43b2kt83417oeeg4no1flf2f0u6oo70t/1585289700000/06419056966375271799/14037397646421944821Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e%3Ddownload&amp;hash=39be11o8p8cniivbvl5d8g555ub71bhu [following]
---2020-03-26 23:15:02--  https://docs.google.com/nonceSigner?nonce=ecgqocgdvr23e&amp;continue=https://doc-0s-7c-docs.googleusercontent.com/docs/securesc/foke32ft9qu610gjkgcvjmnslqqohin0/43b2kt83417oeeg4no1flf2f0u6oo70t/1585289700000/06419056966375271799/14037397646421944821Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e%3Ddownload&amp;hash=39be11o8p8cniivbvl5d8g555ub71bhu
-Connecting to docs.google.com (docs.google.com)|172.217.12.46|:443...connected.
+Location: https://docs.google.com/nonceSigner?nonce=9t6pm5at3pbv2&amp;continue=https://doc-0g-6c-docs.googleusercontent.com/docs/securesc/o3og71a91qgol1cua0rboq32a40qrdlt/v560us4i1njt4vb1u7lg9hf3gop8mus9/1585438275000/06419056966375271799/14803611712605495394Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e%3Ddownload&amp;hash=sqmle5e98cgl6tu7cp70eh2jeog5e06c [following]
+--2020-03-28 16:31:22--  https://docs.google.com/nonceSigner?nonce=9t6pm5at3pbv2&amp;continue=https://doc-0g-6c-docs.googleusercontent.com/docs/securesc/o3og71a91qgol1cua0rboq32a40qrdlt/v560us4i1njt4vb1u7lg9hf3gop8mus9/1585438275000/06419056966375271799/14803611712605495394Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e%3Ddownload&amp;hash=sqmle5e98cgl6tu7cp70eh2jeog5e06c
+Connecting to docs.google.com (docs.google.com)|172.217.14.174|:443...connected.
 HTTP request sent, awaiting response...302 Found
-Location: https://doc-0s-7c-docs.googleusercontent.com/docs/securesc/foke32ft9qu610gjkgcvjmnslqqohin0/43b2kt83417oeeg4no1flf2f0u6oo70t/1585289700000/06419056966375271799/14037397646421944821Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download&amp;nonce=ecgqocgdvr23e&amp;user=14037397646421944821Z&amp;hash=9ugcvie17cj736kuo215tpeiu0mp70i0 [following]
---2020-03-26 23:15:02--  https://doc-0s-7c-docs.googleusercontent.com/docs/securesc/foke32ft9qu610gjkgcvjmnslqqohin0/43b2kt83417oeeg4no1flf2f0u6oo70t/1585289700000/06419056966375271799/14037397646421944821Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download&amp;nonce=ecgqocgdvr23e&amp;user=14037397646421944821Z&amp;hash=9ugcvie17cj736kuo215tpeiu0mp70i0
-Connecting to doc-0s-7c-docs.googleusercontent.com (doc-0s-7c-docs.googleusercontent.com)|172.217.1.129|:443...connected.
+Location: https://doc-0g-6c-docs.googleusercontent.com/docs/securesc/o3og71a91qgol1cua0rboq32a40qrdlt/v560us4i1njt4vb1u7lg9hf3gop8mus9/1585438275000/06419056966375271799/14803611712605495394Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download&amp;nonce=9t6pm5at3pbv2&amp;user=14803611712605495394Z&amp;hash=9s0bi6cpm37hj4d195s187j713mrkcud [following]
+--2020-03-28 16:31:22--  https://doc-0g-6c-docs.googleusercontent.com/docs/securesc/o3og71a91qgol1cua0rboq32a40qrdlt/v560us4i1njt4vb1u7lg9hf3gop8mus9/1585438275000/06419056966375271799/14803611712605495394Z/17npUPcK1eXV9YtMMODwQEIvLkUgq8m2m?e=download&amp;nonce=9t6pm5at3pbv2&amp;user=14803611712605495394Z&amp;hash=9s0bi6cpm37hj4d195s187j713mrkcud
+Connecting to doc-0g-6c-docs.googleusercontent.com (doc-0g-6c-docs.googleusercontent.com)|216.58.194.129|:443...connected.
 HTTP request sent, awaiting response...200 OK
 Length: 23092 (23K) [application/zip]
 Saving to: ‘cs294-158-autoreg-master.zip’
 
-cs294-158-autoreg-m 100%[===================&gt;]  22.55K  --.-KB/s    in 0.04s   
+cs294-158-autoreg-m 100%[===================&gt;]  22.55K  --.-KB/s    in 0.05s   
 
-2020-03-26 23:15:02 (527 KB/s) - ‘cs294-158-autoreg-master.zip’ saved [23092/23092]
+2020-03-28 16:31:22 (477 KB/s) - ‘cs294-158-autoreg-master.zip’ saved [23092/23092]
 
 Processing ./cs294-158-autoreg-master
 Building wheels for collected packages: deepul-helper
   Building wheel for deepul-helper (setup.py) ... done
-  Created wheel for deepul-helper: filename=deepul_helper-0.1.0-py3-none-any.whl size=10706 sha256=465e4cdc3b81124a2ca57b371cad02c55fe8cae5e55a044dabae065c32a510ce
+  Created wheel for deepul-helper: filename=deepul_helper-0.1.0-py3-none-any.whl size=10706 sha256=32008e67c53531bc8db959bc83b944368d4f310ece628d234e6e9523db91a3c3
   Stored in directory: /Users/jovan.sardinha/Library/Caches/pip/wheels/60/82/53/81c8d169b0f917b183b7db7a10c54f3b22b08540589f4895a8
 Successfully built deepul-helper
 Installing collected packages: deepul-helper
@@ -133,16 +133,16 @@ Successfully installed deepul-helper-0.1.0
 <pre>sed: illegal option -- r
 usage: sed script [-Ealn] [-i extension] [file ...]
        sed [-Ealn] [-i extension] [-e script] ... [-f script_file] ... [file ...]
---2020-03-26 23:15:09--  https://docs.google.com/uc?export=download&amp;confirm=&amp;id=1CuFbTWshUfmU3F4bc2SODxzMm1vFU4hC
-Resolving docs.google.com (docs.google.com)... 172.217.12.46
-Connecting to docs.google.com (docs.google.com)|172.217.12.46|:443...connected.
+--2020-03-28 16:31:25--  https://docs.google.com/uc?export=download&amp;confirm=&amp;id=1CuFbTWshUfmU3F4bc2SODxzMm1vFU4hC
+Resolving docs.google.com (docs.google.com)... 172.217.14.174
+Connecting to docs.google.com (docs.google.com)|172.217.14.174|:443...connected.
 HTTP request sent, awaiting response...200 OK
 Length: unspecified [text/html]
 Saving to: ‘pretrained_models.zip’
 
 pretrained_models.z     [ &lt;=&gt;                ]   3.19K  --.-KB/s    in 0s      
 
-2020-03-26 23:15:10 (15.4 MB/s) - ‘pretrained_models.zip’ saved [3267]
+2020-03-28 16:31:25 (6.88 MB/s) - ‘pretrained_models.zip’ saved [3267]
 
 [pretrained_models.zip]
   End-of-central-directory signature not found.  Either this file is not
@@ -202,8 +202,22 @@ unzip:  cannot find zipfile directory in one of pretrained_models.zip or
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Pre-downloaded dataset
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>0it [00:00, ?it/s]Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to data/MNIST/raw/train-images-idx3-ubyte.gz
+9920512it [00:01, 9866050.36it/s]
+Extracting data/MNIST/raw/train-images-idx3-ubyte.gz to data/MNIST/raw
+0it [00:00, ?it/s]Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to data/MNIST/raw/train-labels-idx1-ubyte.gz
+32768it [00:00, 118440.20it/s]
+  0%|          | 0/1648877 [00:00&lt;?, ?it/s]Extracting data/MNIST/raw/train-labels-idx1-ubyte.gz to data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to data/MNIST/raw/t10k-images-idx3-ubyte.gz
+1654784it [00:01, 1608621.74it/s]
+0it [00:00, ?it/s]Extracting data/MNIST/raw/t10k-images-idx3-ubyte.gz to data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+8192it [00:00, 45850.70it/s]
+Extracting data/MNIST/raw/t10k-labels-idx1-ubyte.gz to data/MNIST/raw
+Processing...
+Done!
+Pre-downloaded dataset
 </pre>
 </div>
 </div>

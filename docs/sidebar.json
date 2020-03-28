@@ -1,7 +1,7 @@
 {
   "jsmltools": {
     "Overview": "/",
-    "Title": "/autoregressive_models",
+    "Autoregressive Models": "/autoregressive_models",
     "Custom Tensorflow Training": "/custom_tf_training"
   }
 }

@@ -1,7 +1,7 @@
 {
   "jsmltools": {
     "Overview": "/",
-    "Custom Tensorflow Training": "/custom_tf_training",
-    "_notebook_template": "/hello_nbdev"
+    "Title": "/autoregressive_models",
+    "Custom Tensorflow Training": "/custom_tf_training"
   }
 }

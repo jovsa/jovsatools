@@ -13,6 +13,9 @@ entries:
       title: Autoregressive Models
       url: /autoregressive_models
     - output: web,pdf
+      title: Custom Pytorch Training
+      url: /custom_pytorch_training
+    - output: web,pdf
       title: Custom Tensorflow Training
       url: /custom_tf_training
     output: web

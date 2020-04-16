@@ -18,6 +18,9 @@ entries:
     - output: web,pdf
       title: Custom Tensorflow Training
       url: /custom_tf_training
+    - output: web,pdf
+      title: The Transformer
+      url: /transformer
     output: web
     title: jsmltools
   output: web

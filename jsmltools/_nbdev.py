@@ -11,7 +11,8 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "MixtureOfLogistics": "custom_pytorch_training.ipynb"}
 
 modules = ["custom_pytorch_training.py",
-           "custom_tf_training.py"]
+           "custom_tf_training.py",
+           "transformer.py"]
 
 doc_url = "https://jovsa.github.io/jsmltools/"
 

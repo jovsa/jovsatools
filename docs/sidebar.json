@@ -1,8 +1,8 @@
 {
   "jsmltools": {
     "Overview": "/",
-    "Autoregressive Models": "/autoregressive_models",
     "Custom Pytorch Training": "/custom_pytorch_training",
-    "Custom Tensorflow Training": "/custom_tf_training"
+    "Custom Tensorflow Training": "/custom_tf_training",
+    "Kelly Criterion": "/kelly_criterion"
   }
 }

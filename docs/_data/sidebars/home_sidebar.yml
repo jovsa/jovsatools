@@ -16,6 +16,9 @@ entries:
       title: Custom Tensorflow Training
       url: /custom_tf_training
     - output: web,pdf
+      title: Function Approximation
+      url: /function_approximation
+    - output: web,pdf
       title: Kelly Criterion
       url: /kelly_criterion
     output: web

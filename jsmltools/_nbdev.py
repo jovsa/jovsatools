@@ -8,10 +8,15 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "eval_loss": "custom_pytorch_training.ipynb",
          "train_epochs": "custom_pytorch_training.ipynb",
          "Histogram": "custom_pytorch_training.ipynb",
-         "MixtureOfLogistics": "custom_pytorch_training.ipynb"}
+         "MixtureOfLogistics": "custom_pytorch_training.ipynb",
+         "MNISTDataGenerator": "data_generator.ipynb",
+         "KerasPipeline": "function_approximation.ipynb",
+         "HighLevelKerasPipeline": "function_approximation.ipynb"}
 
 modules = ["custom_pytorch_training.py",
-           "custom_tf_training.py"]
+           "custom_tf_training.py",
+           "data_generator.py",
+           "function_approximation.py"]
 
 doc_url = "https://jovsa.github.io/jsmltools/"
 

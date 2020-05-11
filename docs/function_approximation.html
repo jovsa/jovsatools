@@ -31,24 +31,36 @@ description: "function approximation playground"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-2-365e9dec2795&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">#export</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> nbdev<span class="ansi-blue-fg">.</span>showdoc <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">import</span> jsmltools
-<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">from</span> fastcore<span class="ansi-blue-fg">.</span>test <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-green-fg">import</span> numpy <span class="ansi-green-fg">as</span> np
 
-<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;nbdev&#39;</pre>
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="KerasPipeline" class="doc_header"><code>class</code> <code>KerasPipeline</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KerasPipeline</code>() :: <code>ABC</code></p>
+</blockquote>
+<p>Scafolding for a model building pipeline.</p>
+<p>This base class will contain scafolding for all pipelines
+used. The goal of this base class is mainly to add safeguard
+and assumption enforcement.</p>
+
 </div>
+
 </div>
 
 </div>
@@ -59,7 +71,13 @@ description: "function approximation playground"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Setup">Data Setup<a class="anchor-link" href="#Data-Setup"> </a></h3>
+<h3 id="Using-High-Level-APIs">Using High Level APIs<a class="anchor-link" href="#Using-High-Level-APIs"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Using-tf.keras-Functional-API">Using tf.keras Functional API<a class="anchor-link" href="#Using-tf.keras-Functional-API"> </a></h4>
 </div>
 </div>
 </div>
@@ -81,11 +99,35 @@ description: "function approximation playground"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="DataGenerator" class="doc_header"><code>class</code> <code>DataGenerator</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L19" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DataGenerator</code>(<strong><code>additional_y</code></strong>=<em><code>0</code></em>, <strong><code>seed</code></strong>=<em><code>1123</code></em>)</p>
+<h2 id="CustomLoss" class="doc_header"><code>class</code> <code>CustomLoss</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L74" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CustomLoss</code>(<strong>**<code>kwargs</code></strong>) :: <code>Loss</code></p>
 </blockquote>
-<p>generates a multi-calss regression/classification data based on MNIST</p>
-<p>x = mnist data flattened
-y = regression/classification targets based on self.initialize()</p>
+<p>Loss base class.</p>
+<p>To be implemented by subclasses:</p>
+<ul>
+<li><code>call()</code>: Contains the logic for loss calculation using <code>y_true</code>, <code>y_pred</code>.</li>
+</ul>
+<p>Example subclass implementation:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MeanSquaredError</span><span class="p">(</span><span class="n">Loss</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">convert_to_tensor_v2</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">math_ops</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">K</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">math_ops</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+<p>When used with <code>tf.distribute.Strategy</code>, outside of built-in training loops
+such as <code>tf.keras</code> <code>compile</code> and <code>fit</code>, please use 'SUM' or 'NONE' reduction
+types, and reduce losses explicitly in your training loop. Using 'AUTO' or
+'SUM_OVER_BATCH_SIZE' will raise an error.</p>
+<p>Please see this custom training [tutorial]
+(<a href="https://www.tensorflow.org/tutorials/distribute/custom_training">https://www.tensorflow.org/tutorials/distribute/custom_training</a>) for more
+details on this.</p>
+<p>You can implement 'SUM_OVER_BATCH_SIZE' using global batch size like:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">strategy</span><span class="o">.</span><span class="n">scope</span><span class="p">():</span>
+  <span class="n">loss_obj</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">CategoricalCrossentropy</span><span class="p">(</span>
+      <span class="n">reduction</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">Reduction</span><span class="o">.</span><span class="n">NONE</span><span class="p">)</span>
+  <span class="o">....</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">loss_obj</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span> <span class="o">*</span>
+          <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">global_batch_size</span><span class="p">))</span>
+</pre></div>
 
 </div>
 
@@ -97,13 +139,114 @@ y = regression/classification targets based on self.initialize()</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Generating dataset for experimentation</p>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="CustomMetrics" class="doc_header"><code>class</code> <code>CustomMetrics</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L84" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CustomMetrics</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>) :: <code>Metric</code></p>
+</blockquote>
+<p>Encapsulates metric logic and state.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">SomeMetric</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="o">...</span><span class="p">:</span>
+  <span class="n">m</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final result: &#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+<p>Usage with tf.keras API:</p>
+<div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">CategoricalCrossentropy</span><span class="p">(),</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">CategoricalAccuracy</span><span class="p">()])</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+<p>To be implemented by subclasses:</p>
+<ul>
+<li><code>__init__()</code>: All state variables should be created in this method by
+calling <code>self.add_weight()</code> like: <code>self.var = self.add_weight(...)</code></li>
+<li><code>update_state()</code>: Has all updates to the state variables like:
+self.var.assign_add(...).</li>
+<li><code>result()</code>: Computes and returns a value for the metric
+from the state variables.</li>
+</ul>
+<p>Example subclass implementation:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BinaryTruePositives</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Metric</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;binary_true_positives&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">BinaryTruePositives</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">true_positives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;tp&#39;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sample_weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">sample_weight</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">sample_weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+      <span class="n">sample_weight</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">broadcast_weights</span><span class="p">(</span><span class="n">sample_weight</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">true_positives</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_positives</span>
+</pre></div>
+
+</div>
+
+</div>
 
 </div>
 </div>
+
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="HighLevelPipeline" class="doc_header"><code>class</code> <code>HighLevelPipeline</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L98" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HighLevelPipeline</code>() :: <a href="/jsmltools/function_approximation#KerasPipeline"><code>KerasPipeline</code></a></p>
+</blockquote>
+<p>Scafolding for a model building pipeline.</p>
+<p>This base class will contain scafolding for all pipelines
+used. The goal of this base class is mainly to add safeguard
+and assumption enforcement.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -111,18 +254,67 @@ y = regression/classification targets based on self.initialize()</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># data hyperparms</span>
-<span class="n">additional_y</span><span class="p">,</span> <span class="n">train_n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span>
-<span class="n">data_generator</span> <span class="o">=</span> <span class="n">DataGenerator</span><span class="p">(</span><span class="n">additional_y</span><span class="p">)</span>
-<span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">data_generator</span><span class="p">(</span><span class="n">train_n</span><span class="p">)</span>
-
-<span class="c1"># tests</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">),</span> <span class="n">train_n</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">additional_y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_y</span><span class="p">),</span> <span class="mi">10000</span><span class="p">)</span> <span class="c1"># based on MNIST</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipeline_1</span> <span class="o">=</span> <span class="n">HighLevelPipeline</span><span class="p">()</span>
+<span class="n">pipeline_1</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Epoch 1/10
+15/15 [==============================] - 0s 13ms/step - loss: 1.4809 - sparse_categorical_accuracy: 0.5722 - val_loss: 1.0457 - val_sparse_categorical_accuracy: 0.6200
+Epoch 2/10
+15/15 [==============================] - 0s 3ms/step - loss: 0.6912 - sparse_categorical_accuracy: 0.8189 - val_loss: 0.9689 - val_sparse_categorical_accuracy: 0.6600
+Epoch 3/10
+15/15 [==============================] - 0s 3ms/step - loss: 0.4773 - sparse_categorical_accuracy: 0.8722 - val_loss: 0.5805 - val_sparse_categorical_accuracy: 0.8400
+Epoch 4/10
+15/15 [==============================] - 0s 4ms/step - loss: 0.3518 - sparse_categorical_accuracy: 0.9089 - val_loss: 0.5024 - val_sparse_categorical_accuracy: 0.8600
+Epoch 5/10
+15/15 [==============================] - 0s 4ms/step - loss: 0.2711 - sparse_categorical_accuracy: 0.9278 - val_loss: 0.6103 - val_sparse_categorical_accuracy: 0.8300
+Epoch 6/10
+15/15 [==============================] - 0s 3ms/step - loss: 0.2337 - sparse_categorical_accuracy: 0.9356 - val_loss: 0.4339 - val_sparse_categorical_accuracy: 0.9000
+Epoch 7/10
+15/15 [==============================] - 0s 4ms/step - loss: 0.1680 - sparse_categorical_accuracy: 0.9611 - val_loss: 0.4834 - val_sparse_categorical_accuracy: 0.8900
+Epoch 8/10
+15/15 [==============================] - 0s 3ms/step - loss: 0.1353 - sparse_categorical_accuracy: 0.9678 - val_loss: 0.6425 - val_sparse_categorical_accuracy: 0.8300
+Epoch 9/10
+15/15 [==============================] - 0s 3ms/step - loss: 0.1228 - sparse_categorical_accuracy: 0.9744 - val_loss: 0.5031 - val_sparse_categorical_accuracy: 0.8800
+Epoch 10/10
+15/15 [==============================] - 0s 4ms/step - loss: 0.0873 - sparse_categorical_accuracy: 0.9789 - val_loss: 0.5163 - val_sparse_categorical_accuracy: 0.8600
+Model: &#34;model&#34;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         [(None, 784, 1)]          0         
+_________________________________________________________________
+rescaling (Rescaling)        (None, 784, 1)            0         
+_________________________________________________________________
+flatten (Flatten)            (None, 784)               0         
+_________________________________________________________________
+dense (Dense)                (None, 128)               100480    
+_________________________________________________________________
+dense_1 (Dense)              (None, 128)               16512     
+_________________________________________________________________
+dense_2 (Dense)              (None, 10)                1290      
+=================================================================
+Total params: 118,282
+Trainable params: 118,282
+Non-trainable params: 0
+_________________________________________________________________
+None
+313/313 [==============================] - 0s 933us/step - loss: 0.5166 - sparse_categorical_accuracy: 0.8504
+[0.5166111588478088, 0.8503999710083008]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -131,11 +323,10 @@ y = regression/classification targets based on self.initialize()</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Experimenation">Experimenation<a class="anchor-link" href="#Experimenation"> </a></h2><p>Model Based</p>
+<h2 id="Experimenation-Log">Experimenation Log<a class="anchor-link" href="#Experimenation-Log"> </a></h2><p>Model Based</p>
 <ul>
 <li>Using High Level APIs<ul>
-<li>tf.keras functional </li>
-<li>tf.keras sklearn wrapper</li>
+<li>tf.keras functional</li>
 </ul>
 </li>
 <li>Custom layers</li>
@@ -158,59 +349,9 @@ y = regression/classification targets based on self.initialize()</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-High-Level-APIs">Using High Level APIs<a class="anchor-link" href="#Using-High-Level-APIs"> </a></h3>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ignore </span>
-<span class="c1"># model = tf.keras.Sequential(</span>
-<span class="c1">#     [</span>
-<span class="c1">#         keras.layers.Dense(16, input_dim=1, activation=&#39;relu&#39;),</span>
-<span class="c1">#         keras.layers.Dense(8, activation=&#39;relu&#39;),</span>
-<span class="c1">#         keras.layers.Dense(8, activation=&#39;relu&#39;),</span>
-<span class="c1">#         keras.layers.Dense(4, activation=&#39;relu&#39;),</span>
-<span class="c1">#         keras.layers.Dense(1, activation=&#39;relu&#39;),</span>
-<span class="c1">#     ]</span>
-<span class="c1"># )</span>
-
-<span class="c1"># model.compile(optimizer=&#39;adam&#39;, loss=&#39;binary_crossentropy&#39;, metrics=[&#39;accuracy&#39;])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># model.fit(x=train_x, y=train_y, epochs=200, batch_size=20, verbose=20, validation_split=0.1)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><ul>
 <li><a href="https://colab.research.google.com/drive/1lWUGZarlbORaHYUZlF9muCgpPl8pEvve">Keras for Engineers</a></li>
+<li><a href="https://colab.research.google.com/drive/169PfzM0kvtA5UP4k6Sl1yCG9tsE2MLia#scrollTo=4T2NXVLa9Cld">Keras for Researchers</a></li>
 </ul>
 
 </div>

@@ -3,6 +3,7 @@
     "Overview": "/",
     "Custom Pytorch Training": "/custom_pytorch_training",
     "Custom Tensorflow Training": "/custom_tf_training",
+    "Data Generator": "/data_generator",
     "Function Approximation": "/function_approximation",
     "Kelly Criterion": "/kelly_criterion"
   }

@@ -51,7 +51,7 @@ local_env:
 	#		nbdev code link: https://github.com/fastai/nbdev/blob/master/nbdev/test.py#L77
 	( \
 		source $(VENV)/bin/activate; \
-		pip install .; \
+		pip install -e .; \
 		ipython kernel install --name "python3" --user; \
 	)
 	echo "source $(VENV) and you are all set!"

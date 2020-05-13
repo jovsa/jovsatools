@@ -12,7 +12,7 @@ import tensorflow as tf
 # Cell
 
 class MNISTDataGenerator(object):
-    '''generates a multi-calss regression/classification data based on MNIST
+    """Generates a multi-calss regression/classification data based on MNIST
 
         x = mnist data flattened
         y = regression/classification targets based on self.initialize()
@@ -26,7 +26,7 @@ class MNISTDataGenerator(object):
             train_y: numpy.ndarray, all the targets; MNIST label + additional_y
             test_x: numpy.ndarray, MNIST test data flattened
             test_y: numpy.ndarray, all the targets; MNIST label + additional_y
-    '''
+    """
     def __init__(self, additional_y=0, seed=1123):
         self.additional_y = additional_y
         self.seed = np.random.seed(seed=seed)
@@ -46,7 +46,7 @@ class MNISTDataGenerator(object):
         self.test_n = len(self.mnist_test_x)
 
     def _initialize(self, additional_y):
-        '''prepare functions to approximate '''
+        """prepare functions to approximate """
         epsilon = 0.000123
         C = 102 # emperical value from analyzing MNIST data
 
@@ -68,7 +68,7 @@ class MNISTDataGenerator(object):
         self.mnist_test_x, self.mnist_test_y = test[0], test[1]
 
     def __call__(self, train_n):
-        '''data generation '''
+        """data generation """
         assert train_n <= self.train_n
         train_x, train_y = [], []
         test_x, test_y = [], []

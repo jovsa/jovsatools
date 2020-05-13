@@ -18,12 +18,12 @@ test_eq(tf.__version__, "2.2.0")
 # Cell
 
 class KerasPipeline(ABC):
-    '''Scafolding for a model building pipeline.
+    """Scafolding for a model building pipeline.
 
     This base class will contain scafolding for all pipelines
     used. The goal of this base class is mainly to add safeguard
     and assumption enforcement.
-    '''
+    """
     def __init__(self):
         # safe guard: to ensure that various session don't collide
         keras.backend.clear_session()
@@ -55,7 +55,9 @@ class KerasPipeline(ABC):
     @abstractmethod
     def __call__(self):
         # checking that self.get_data() is implimented as expected
-        assert list(map(lambda x: x is not None, [self.train_x, self.train_y, self.test_x, self.test_y]))  == [True] * 4
+        assert list(
+            map(lambda x: x is not None, [self.train_x, self.train_y, self.test_x, self.test_y])
+            )  == [True] * 4
 
         # checking that self.model() is implimented as expected
         assert self.model is not None

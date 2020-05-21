@@ -66,7 +66,7 @@ y = regression/classification targets based on self.initialize()</p>
 <p>Arguments:
     additional_y: Integer, used to specify the additional targets
     seed = Integer, used to specify np.random.seed()</p>
-<p>Retruns:
+<p>Returns:
     train_x: numpy.ndarray, MNIST train data flattened
     train_y: numpy.ndarray, all the targets; MNIST label + additional_y
     test_x: numpy.ndarray, MNIST test data flattened
@@ -90,12 +90,27 @@ y = regression/classification targets based on self.initialize()</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># data hyperparms</span>
-<span class="n">additional_y</span><span class="p">,</span> <span class="n">train_n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span>
+<span class="n">additional_y</span><span class="p">,</span> <span class="n">train_n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span>
 <span class="n">data_generator</span> <span class="o">=</span> <span class="n">MNISTDataGenerator</span><span class="p">(</span><span class="n">additional_y</span><span class="p">)</span>
 <span class="n">datasets</span>  <span class="o">=</span> <span class="n">data_generator</span><span class="p">(</span><span class="n">train_n</span><span class="p">)</span>
 <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">datasets</span>
+</pre></div>
 
-<span class="c1"># tests</span>
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tests</span>
 
 <span class="c1">#testing if every dataset returned is numpy.ndarray</span>
 <span class="n">test_eq</span><span class="p">(</span>
@@ -109,7 +124,24 @@ y = regression/classification targets based on self.initialize()</p>
     <span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">),</span> <span class="n">train_n</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">additional_y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">train_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">additional_y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">test_y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">additional_y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># head 0 tests</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">train_y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])),</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])),</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span>
+
+<span class="c1"># head 1 tests</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">train_y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])),</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">test_y</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])),</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+
+<span class="c1"># head 3 tests</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">train_y</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">True</span> <span class="p">)</span> 
+<span class="n">test_eq</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">test_y</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">True</span> <span class="p">)</span> 
+<span class="n">test_eq</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">train_y</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">True</span> <span class="p">)</span> 
+<span class="n">test_eq</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">test_y</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">True</span> <span class="p">)</span> 
+
+
 <span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_y</span><span class="p">),</span> <span class="mi">10000</span><span class="p">)</span> <span class="c1"># based on MNIST</span>
 </pre></div>
 

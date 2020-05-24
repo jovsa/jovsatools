@@ -10,7 +10,11 @@ jsmltools: $(SRC)
 	touch jsmltools
 
 docs_serve: docs
-	cd docs && bundle exec jekyll serve
+	gem install bundler jekyll
+	rm -f docs/Gemfile.lock
+	cd docs && \
+		bundle install && \
+		bundle exec jekyll serve
 
 docs: $(SRC)
 	nbdev_build_docs
@@ -64,10 +68,3 @@ format:
 
 update: $(SRC)
 	nbdev_build_lib && nbdev_build_docs && nbdev_clean_nbs && nbdev_test_nbs
-
-run_docs_server: docs_serve
-	# source: https://gorails.com/setup/osx/10.9-mavericks
-	# source: https://jekyllrb.com/docs/installation/macos/
-	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
-	source ~/.bash_profile
-	docs_serve

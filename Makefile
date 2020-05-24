@@ -67,6 +67,7 @@ update: $(SRC)
 
 run_docs_server: docs_serve
 	# source: https://gorails.com/setup/osx/10.9-mavericks
+	# source: https://jekyllrb.com/docs/installation/macos/
 	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
 	source ~/.bash_profile
 	docs_serve

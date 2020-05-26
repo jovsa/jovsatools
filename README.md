@@ -2,7 +2,7 @@
 > my personal toolbox 🧰
 
 
-### Usefull links
-[design document] (jovsa.github.io/jsmltools/design_document/)
+### Usefull Links
+[Design document](jovsa.github.io/jsmltools/design_document/): outlines the choices, condiderations and tradeoffs made 
 
-[usefull commands] (https://github.com/jovsa/jsmltools/blob/master/Makefile)
+[Usefull commands](https://github.com/jovsa/jsmltools/blob/master/Makefile): when running things locally

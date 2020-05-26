@@ -3,7 +3,7 @@
 #####################################################################
 SRC = $(wildcard nbs/*.ipynb)
 
-all: jsmltools docs
+all: jovsatools docs
 
 jsmltools: $(SRC)
 	nbdev_build_lib
@@ -38,7 +38,7 @@ clean:
 #####################################################################
 #							CUSTOM COMMANDS
 #####################################################################
-VENV = venv-jsmltools
+VENV = venv-jovsatools
 
 # create local env
 local_env:

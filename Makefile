@@ -5,9 +5,9 @@ SRC = $(wildcard nbs/*.ipynb)
 
 all: jovsatools docs
 
-jsmltools: $(SRC)
+jovsatools: $(SRC)
 	nbdev_build_lib
-	touch jsmltools
+	touch jovsatools
 
 docs_serve: docs
 	gem install bundler jekyll

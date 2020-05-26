@@ -5,8 +5,8 @@ __all__ = ['KerasPipeline', 'HighLevelKerasPipeline']
 # Cell
 from abc import ABC, abstractmethod
 from fastcore.test import *
-import jsmltools
-from jsmltools import data_generator
+import jovsatools
+from jovsatools import data_generator
 from nbdev.showdoc import *
 import numpy as np
 import tensorflow as tf

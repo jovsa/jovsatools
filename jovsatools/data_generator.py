@@ -6,7 +6,7 @@ __all__ = ['MNISTDataGenerator']
 from fastcore.test import *
 from nbdev.showdoc import *
 import numpy as np
-import jsmltools
+import jovsatools
 import tensorflow as tf
 
 # Cell

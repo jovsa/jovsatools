@@ -31,6 +31,36 @@ description: "function approximation playground"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-67cf80584282&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">from</span> fastcore<span class="ansi-blue-fg">.</span>test <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">import</span> jovsatools
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> jovsatools <span class="ansi-green-fg">import</span> data_generator
+<span class="ansi-green-intense-fg ansi-bold">      6</span> <span class="ansi-green-fg">from</span> nbdev<span class="ansi-blue-fg">.</span>showdoc <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> <span class="ansi-green-fg">import</span> numpy <span class="ansi-green-fg">as</span> np
+
+<span class="ansi-green-fg">~/Github_personal/jovsatools/jovsatools/data_generator.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> <span class="ansi-green-fg">from</span> nbdev<span class="ansi-blue-fg">.</span>showdoc <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> <span class="ansi-green-fg">import</span> numpy <span class="ansi-green-fg">as</span> np
+<span class="ansi-green-fg">----&gt; 9</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> jsmltools
+<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-green-fg">import</span> tensorflow <span class="ansi-green-fg">as</span> tf
+<span class="ansi-green-intense-fg ansi-bold">     11</span> 
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;jsmltools&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -52,7 +82,7 @@ description: "function approximation playground"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="KerasPipeline" class="doc_header"><code>class</code> <code>KerasPipeline</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KerasPipeline</code>() :: <code>ABC</code></p>
+<h2 id="KerasPipeline" class="doc_header"><code>class</code> <code>KerasPipeline</code><a href="https://github.com/jovsa/jovsatools/tree/master/jovsatools/function_approximation.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KerasPipeline</code>() :: <code>ABC</code></p>
 </blockquote>
 <p>Scafolding for a model building pipeline.</p>
 <p>This base class will contain scafolding for all pipelines
@@ -99,7 +129,7 @@ and assumption enforcement.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="HighLevelKerasPipeline" class="doc_header"><code>class</code> <code>HighLevelKerasPipeline</code><a href="https://github.com/jovsa/jsmltools/tree/master/jsmltools/function_approximation.py#L76" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HighLevelKerasPipeline</code>() :: <a href="/jsmltools/function_approximation#KerasPipeline"><code>KerasPipeline</code></a></p>
+<h2 id="HighLevelKerasPipeline" class="doc_header"><code>class</code> <code>HighLevelKerasPipeline</code><a href="https://github.com/jovsa/jovsatools/tree/master/jovsatools/function_approximation.py#L76" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HighLevelKerasPipeline</code>() :: <a href="/jovsatools/function_approximation#KerasPipeline"><code>KerasPipeline</code></a></p>
 </blockquote>
 <p>Scafolding for a model building pipeline.</p>
 <p>This base class will contain scafolding for all pipelines

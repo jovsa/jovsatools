@@ -1,7 +1,7 @@
-repository: jovsa/jsmltools
+repository: jovsa/jovsatools
 output: web
-topnav_title: jsmltools
-site_title: jsmltools
+topnav_title: jovsatools
+site_title: jovsatools
 company_name: Jovan Sardinha
 description: A collection of ml tools
 # Set to false to disable KaTeX math
@@ -20,7 +20,7 @@ exclude:
   - .idea/
   - .gitignore
   - vendor
-
+ 
 exclude: [vendor]
 
 highlighter: rouge
@@ -61,4 +61,4 @@ sidebars:
 permalink: pretty
 
 theme: jekyll-theme-cayman
-baseurl: /jsmltools/
+baseurl: /jovsatools/

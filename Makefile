@@ -3,11 +3,11 @@
 #####################################################################
 SRC = $(wildcard nbs/*.ipynb)
 
-all: jsmltools docs
+all: jovsatools docs
 
-jsmltools: $(SRC)
+jovsatools: $(SRC)
 	nbdev_build_lib
-	touch jsmltools
+	touch jovsatools
 
 docs_serve: docs
 	gem install bundler jekyll
@@ -38,7 +38,7 @@ clean:
 #####################################################################
 #							CUSTOM COMMANDS
 #####################################################################
-VENV = venv-jsmltools
+VENV = venv-jovsatools
 
 # create local env
 local_env:

@@ -60,11 +60,13 @@ local_env:
 	)
 	echo "source $(VENV) and you are all set!"
 
+# to tust a new instance
 trust:
 	nbdev_install_git_hooks
 
 format:
 	black . -v
 
+# single command to update any local changes
 update: $(SRC)
 	nbdev_build_lib && nbdev_build_docs && nbdev_clean_nbs && nbdev_test_nbs

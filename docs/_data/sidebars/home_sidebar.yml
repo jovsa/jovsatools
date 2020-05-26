@@ -19,6 +19,9 @@ entries:
       title: Data Generator
       url: /data_generator
     - output: web,pdf
+      title: Design Document
+      url: /design_document
+    - output: web,pdf
       title: Function Approximation
       url: /function_approximation
     - output: web,pdf

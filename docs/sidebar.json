@@ -4,6 +4,7 @@
     "Custom Pytorch Training": "/custom_pytorch_training",
     "Custom Tensorflow Training": "/custom_tf_training",
     "Data Generator": "/data_generator",
+    "Design Document": "/design_document",
     "Function Approximation": "/function_approximation",
     "Kelly Criterion": "/kelly_criterion"
   }

@@ -5,8 +5,8 @@ title: jsmltools
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "learning -> production"
-description: "learning -> production"
+summary: "my personal toolbox 🧰"
+description: "my personal toolbox 🧰"
 ---
 <!--
 
@@ -29,110 +29,8 @@ description: "learning -> production"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2><ul>
-<li>SCQ</li>
-<li><a href="https://photos.app.goo.gl/yaggyEt4fdD52Xw6A">my physical notes on this</a></li>
-<li>everthing will be WIP (by definition)</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h2><ul>
-<li>Compounding effects with learning/exeprimentation<ul>
-<li>(open ?): How to track? Is it worth tracking?</li>
-</ul>
-</li>
-<li>Quick portability<ul>
-<li>for sandboxing</li>
-<li>so this becomes the canonical repo for experimentation/learning</li>
-</ul>
-</li>
-<li>Multi-domain compatibity</li>
-<li>Incrementability<ul>
-<li>Don't want to spend too much time on <code>setup</code> and <code>boilerplate</code></li>
-<li>Allow for quick ideas/initial exploration to stable APIs to co-exist</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Design-Choices">Design Choices<a class="anchor-link" href="#Design-Choices"> </a></h2><ul>
-<li>Using <a href="https://github.com/fastai/nbdev">nbdev</a> as a base structure<ul>
-<li>(+) Will use this to get something off the ground. However, will not tie too deeply into this strcuture (if I need to swap this out).</li>
-<li>(+) Nice literate env</li>
-<li>(+) Get PyPI functionality out of the box</li>
-<li>(+) Get docs functionality out of the box</li>
-<li>(+) Get unit test functionality out of the box</li>
-<li>(-) Might need to contribute to nbdev to add functionality<ul>
-<li>(mitigation) clone an internal verison of nbdev</li>
-<li>(mitigation) write all non-supported use case directly in the <code>lib</code> folder</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Monolithical git repo<ul>
-<li>(+) Will allow for incrementability</li>
-<li>(+) Will become canonical place with experimentation/learning will happen. This will help with compounding learning/experimentation speed.</li>
-<li>(-) Will enentually get hard to maintain?<ul>
-<li>(mitigation) things don't have a lot of deps will eventually fall out/depricate</li>
-</ul>
-</li>
-<li>(-) &gt;0 startup time</li>
-</ul>
-</li>
-<li>Lack of structure<ul>
-<li>(+) <a href="https://www.hyrumslaw.com/">Hyrum's Law</a></li>
-<li>(-) hard for others to understand/follow<ul>
-<li>(migtigation) build tools to show dependency</li>
-</ul>
-</li>
-<li>(+) allow for incrementability</li>
-</ul>
-</li>
-<li><a href="https://twitter.com/fchollet/status/1231285340335267840">Progressive disclosure of complexity</a><ul>
-<li>(+) easy to start</li>
-<li>(+) allow for rough initial ideas to stable APIs to co-exist</li>
-<li>(-) A lot of extra work needed to trace dependencies<ul>
-<li>(mitigation) build better tools to view dependencies</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Multi-language/multi-framework/multi-domain support.<ul>
-<li>(+) This becomes the canonical repo for learning/experimentation.</li>
-<li>(-) Only python will be used in notebooks (for now and because of nbdev limitation).<ul>
-<li>(mitigation): write all non-supported use case directly in the <code>lib</code> folder.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><ul>
-<li><a href="https://notes.andymatuschak.org/">Andy M. Notes</a> <ul>
-<li>Metacognitive supports as cognitive scaffolding<ul>
-<li>by contraint and blog by narritive</li>
-</ul>
-</li>
-<li><a href="https://supermemo.guru/wiki/Incremental_writing">Incremental Writing</a></li>
-<li>Notes to APIs</li>
-<li>Exponential growth to learn</li>
-<li>Cross-decipline encouragement</li>
-</ul>
-</li>
-</ul>
+<h3 id="Usefull-links">Usefull links<a class="anchor-link" href="#Usefull-links"> </a></h3><p>[design document] (jovsa.github.io/jsmltools/design_document/)</p>
+<p>[usefull commands] (<a href="https://github.com/jovsa/jsmltools/blob/master/Makefile">https://github.com/jovsa/jsmltools/blob/master/Makefile</a>)</p>
 
 </div>
 </div>

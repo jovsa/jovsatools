@@ -11,6 +11,12 @@
 
 * Link to [notebooks](https://github.com/jovsa/jovsatools/tree/master/notebooks)
 
+* pypi pacakge detial:
+    * to import run: `pip install jovsatools`
+    * location of [pypi package](https://pypi.org/project/jovsatools/)
+    * to push an updated version of the package [details here](http://nbdev.fast.ai/tutorial/#Upload-to-pypi)
+
+
 ### FAQ
 * What to get started? [look here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#do-you-want-to-contribute-to-the-documentation)
 

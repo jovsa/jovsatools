@@ -94,8 +94,23 @@ y = regression/classification targets based on self.initialize()</p>
 <span class="n">data_generator</span> <span class="o">=</span> <span class="n">MNISTDataGenerator</span><span class="p">(</span><span class="n">additional_y</span><span class="p">)</span>
 <span class="n">datasets</span>  <span class="o">=</span> <span class="n">data_generator</span><span class="p">(</span><span class="n">train_n</span><span class="p">)</span>
 <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">datasets</span>
+</pre></div>
 
-<span class="c1"># tests</span>
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tests</span>
 
 <span class="c1">#testing if every dataset returned is numpy.ndarray</span>
 <span class="n">test_eq</span><span class="p">(</span>

@@ -13,8 +13,10 @@
 
 
 ### FAQ
-* Please report 🕸️bugs🐛[here](https://github.com/jovsa/jovsatools/issues)
+* What to get started? [look here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#do-you-want-to-contribute-to-the-documentation)
 
-* Have ideas? [create a pull request](https://github.com/jovsa/jovsatools/pulls)
+* Found 🕸️bugs🐛? [look here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#did-you-find-a-bug)
 
-[🎱](https://jovsa.github.io/)
+* Have ideas? [more information here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#pr-submission-guidelines)
+
+[🔮](https://jovsa.github.io/)

@@ -11,12 +11,13 @@
 
 * Link to [notebooks](https://github.com/jovsa/jovsatools/tree/master/notebooks)
 
-
 ### FAQ
 * What to get started? [look here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#do-you-want-to-contribute-to-the-documentation)
 
-* Found 🕸️bugs🐛? [look here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#did-you-find-a-bug)
+* Found bugs🐛? [look here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#did-you-find-a-bug)
 
 * Have ideas? [more information here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#pr-submission-guidelines)
+
+* Known bugs🕸️: There are some documentation rendering issues. Please go to the notebooks directly in such cases.
 
 [🔮](https://jovsa.github.io/)

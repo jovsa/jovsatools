@@ -11,7 +11,8 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "MixtureOfLogistics": "custom_pytorch_training.ipynb",
          "MNISTDataGenerator": "data_generator.ipynb",
          "KerasPipeline": "function_approximation.ipynb",
-         "HighLevelKerasPipeline": "function_approximation.ipynb"}
+         "HighLevelKerasPipeline": "function_approximation.ipynb",
+         "HighLevelKerasPipelineMultiTarget": "function_approximation.ipynb"}
 
 modules = ["custom_pytorch_training.py",
            "custom_tf_training.py",

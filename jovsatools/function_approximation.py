@@ -142,7 +142,6 @@ class HighLevelKerasPipelineMultiTarget(KerasPipeline):
         data = data_generator.MNISTDataGenerator(self.additional_y)
         datasets  = data(self.sample_n)
         self.train_x, self.train_y, self.test_x, self.test_y = datasets
-        print(self.train_y.shape)
 
 
     def build_model(self):

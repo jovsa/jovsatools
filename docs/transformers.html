@@ -254,7 +254,7 @@ description: "Deep dive into transformers"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">num_examples</span> <span class="o">=</span> <span class="mi">10</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">num_examples</span> <span class="o">=</span> <span class="mi">30000</span>
 <span class="n">dataset_path</span> <span class="o">=</span> <span class="n">download_keras_data</span><span class="p">(</span>
                     <span class="s1">&#39;spa-eng.zip&#39;</span><span class="p">,</span> 
                     <span class="s1">&#39;/spa-eng/spa.txt&#39;</span><span class="p">,</span>
@@ -315,7 +315,7 @@ description: "Deep dive into transformers"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>8 8 2 2
+<pre>24000 24000 6000 6000
 </pre>
 </div>
 </div>
@@ -346,6 +346,461 @@ description: "Deep dive into transformers"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_input_batch</span><span class="p">,</span> <span class="n">example_target_batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+<span class="n">example_input_batch</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">example_target_batch</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(TensorShape([64, 16]), TensorShape([64, 11]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Attention-with-the-Encoder-and-Decorder-Model">Attention with the Encoder and Decorder Model<a class="anchor-link" href="#Attention-with-the-Encoder-and-Decorder-Model"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Encoder" class="doc_header"><code>class</code> <code>Encoder</code><a href="https://github.com/jovsa/jovsatools/tree/master/jovsatools/transformers.py#L87" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Encoder</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>) :: <code>Model</code></p>
+</blockquote>
+<p><code>Model</code> groups layers into an object with training and inference features.</p>
+<p>There are two ways to instantiate a <code>Model</code>:</p>
+<p>1 - With the "functional API", where you start from <code>Input</code>,
+you chain layer calls to specify the model's forward pass,
+and finally you create your model from inputs and outputs:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+<p>2 - By subclassing the <code>Model</code> class: in that case, you should define your
+layers in <code>__init__</code> and you should implement the model's forward pass
+in <code>call</code>.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</pre></div>
+<p>If you subclass <code>Model</code>, you can optionally have
+a <code>training</code> argument (boolean) in <code>call</code>, which you can use to specify
+a different behavior in training and inference:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</pre></div>
+<p>Once the model is created, you can config the model with losses and metrics
+with <code>model.compile()</code>, train the model with <code>model.fit()</code>, or use the model
+to do prediction with <code>model.predict()</code>.</p>
+<p>Checkout <a href="https://www.tensorflow.org/guide/keras/overview">guide</a> for
+additional details.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="BahdanauAttention" class="doc_header"><code>class</code> <code>BahdanauAttention</code><a href="https://github.com/jovsa/jovsatools/tree/master/jovsatools/transformers.py#L107" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BahdanauAttention</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>) :: <code>Layer</code></p>
+</blockquote>
+<p>This is the class from which all layers inherit.</p>
+<p>A layer is a callable object that takes as input one or more tensors and
+that outputs one or more tensors. It involves <em>computation</em>, defined
+in the <code>call()</code> method, and a <em>state</em> (weight variables), defined
+either in the constructor <code>__init__()</code> or in the <code>build()</code> method.</p>
+<p>Users will just instantiate a layer and then treat it as a callable.</p>
+<p>We recommend that descendants of <code>Layer</code> implement the following methods:</p>
+<ul>
+<li><code>__init__()</code>: Defines custom layer attributes, and creates layer state
+variables that do not depend on input shapes, using <code>add_weight()</code>.</li>
+<li><code>build(self, input_shape)</code>: This method can be used to create weights that
+depend on the shape(s) of the input(s), using <code>add_weight()</code>. <code>__call__()</code>
+will automatically build the layer (if it has not been built yet) by
+calling <code>build()</code>.</li>
+<li><code>call(self, *args, **kwargs)</code>: Called in <code>__call__</code> after making sure
+<code>build()</code> has been called. <code>call()</code> performs the logic of applying the
+layer to the input tensors (which should be passed in as argument).
+Two reserved keyword arguments you can optionally use in <code>call()</code> are:<ul>
+<li><code>training</code> (boolean, whether the call is in
+inference mode or training mode)</li>
+<li><code>mask</code> (boolean tensor encoding masked timesteps in the input, used
+in RNN layers)</li>
+</ul>
+</li>
+<li><code>get_config(self)</code>: Returns a dictionary containing the configuration used
+to initialize this layer. If the keys differ from the arguments
+in <code>__init__</code>, then override <code>from_config(self)</code> as well.
+This method is used when saving
+the layer or a model that contains this layer.</li>
+</ul>
+<p>Examples:</p>
+<p>Here's a basic example: a layer with two variables, <code>w</code> and <code>b</code>,
+that returns <code>y = w . x + b</code>.
+It shows how to implement <code>build()</code> and <code>call()</code>.
+Variables set as attributes of a layer are tracked as weights
+of the layers (in <code>layer.weights</code>).</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleDense</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">(</span><span class="n">SimpleDense</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+
+  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>  <span class="c1"># Create the state of the layer (weights)</span>
+    <span class="n">w_init</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span>
+        <span class="n">initial_value</span><span class="o">=</span><span class="n">w_init</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span>
+                             <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">),</span>
+        <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">b_init</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros_initializer</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span>
+        <span class="n">initial_value</span><span class="o">=</span><span class="n">b_init</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">),</span>
+        <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>  <span class="c1"># Defines the computation from inputs to outputs</span>
+      <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+<span class="c1"># Instantiates the layer.</span>
+<span class="n">linear_layer</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># This will also call `build(input_shape)` and create the weights.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">linear_layer</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">linear_layer</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+<span class="c1"># These weights are trainable, so they&#39;re listed in `trainable_weights`:</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">linear_layer</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+<p>Note that the method <code>add_weight()</code> offers a shortcut to create weights:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleDense</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">(</span><span class="n">SimpleDense</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+
+  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span>
+                               <span class="n">initializer</span><span class="o">=</span><span class="s1">&#39;random_normal&#39;</span><span class="p">,</span>
+                               <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,),</span>
+                               <span class="n">initializer</span><span class="o">=</span><span class="s1">&#39;random_normal&#39;</span><span class="p">,</span>
+                               <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+</pre></div>
+<p>Besides trainable weights, updated via backpropagation during training,
+layers can also have non-trainable weights. These weights are meant to
+be updated manually during <code>call()</code>. Here's a example layer that computes
+the running sum of its inputs:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ComputeSum</span><span class="p">(</span><span class="n">Layer</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">):</span>
+      <span class="nb">super</span><span class="p">(</span><span class="n">ComputeSum</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+      <span class="c1"># Create a non-trainable weight.</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">input_dim</span><span class="p">,)),</span>
+                               <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">total</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
+
+<span class="n">my_sum</span> <span class="o">=</span> <span class="n">ComputeSum</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">my_sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>  <span class="c1"># [2. 2.]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">my_sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>  <span class="c1"># [4. 4.]</span>
+
+<span class="k">assert</span> <span class="n">my_sum</span><span class="o">.</span><span class="n">weights</span> <span class="o">==</span> <span class="p">[</span><span class="n">my_sum</span><span class="o">.</span><span class="n">total</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">my_sum</span><span class="o">.</span><span class="n">non_trainable_weights</span> <span class="o">==</span> <span class="p">[</span><span class="n">my_sum</span><span class="o">.</span><span class="n">total</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">my_sum</span><span class="o">.</span><span class="n">trainable_weights</span> <span class="o">==</span> <span class="p">[]</span>
+</pre></div>
+<p>For more information about creating layers, see the guide
+<a href="https://www.tensorflow.org/guide/keras/custom_layers_and_models">Writing custom layers and models with Keras</a></p>
+<p>Arguments:
+  trainable: Boolean, whether the layer's variables should be trainable.
+  name: String name of the layer.
+  dtype: The dtype of the layer's computations and weights (default of
+    <code>None</code> means use <code>tf.keras.backend.floatx</code> in TensorFlow 2, or the type
+    of the first input in TensorFlow 1).
+  dynamic: Set this to <code>True</code> if your layer should only be run eagerly, and
+    should not be used to generate a static computation graph.
+    This would be the case for a Tree-RNN or a recursive network,
+    for example, or generally for any layer that manipulates tensors
+    using Python control flow. If <code>False</code>, we assume that the layer can
+    safely be used to generate a static computation graph.</p>
+<p>Attributes:
+  name: The name of the layer (string).
+  dtype: The dtype of the layer's computations and weights. If mixed
+    precision is used with a <code>tf.keras.mixed_precision.experimental.Policy</code>,
+    this is instead just the dtype of the layer's weights, as the computations
+    are done in a different dtype.
+  updates: List of update ops of this layer.
+  losses: List of losses added by this layer.
+  trainable_weights: List of variables to be included in backprop.
+  non_trainable_weights: List of variables that should not be
+    included in backprop.
+  weights: The concatenation of the lists trainable_weights and
+    non_trainable_weights (in this order).
+  trainable: Whether the layer should be trained (boolean).
+  input_spec: Optional (list of) <code>InputSpec</code> object(s) specifying the
+    constraints on inputs that can be accepted by the layer.</p>
+<p>Each layer has a dtype, which is typically the dtype of the layer's
+computations and variables. A layer's dtype can be queried via the
+<code>Layer.dtype</code> property. The dtype is specified with the <code>dtype</code> constructor
+argument. In TensorFlow 2, the dtype defaults to <code>tf.keras.backend.floatx()</code>
+if no dtype is passed. <code>floatx()</code> itself defaults to "float32". Additionally,
+layers will cast their inputs to the layer's dtype in TensorFlow 2. When mixed
+precision is used, layers may have different computation and variable dtypes.
+See <code>tf.keras.mixed_precision.experimental.Policy</code> for details on layer
+dtypes.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Decoder" class="doc_header"><code>class</code> <code>Decoder</code><a href="https://github.com/jovsa/jovsatools/tree/master/jovsatools/transformers.py#L134" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Decoder</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>) :: <code>Model</code></p>
+</blockquote>
+<p><code>Model</code> groups layers into an object with training and inference features.</p>
+<p>There are two ways to instantiate a <code>Model</code>:</p>
+<p>1 - With the "functional API", where you start from <code>Input</code>,
+you chain layer calls to specify the model's forward pass,
+and finally you create your model from inputs and outputs:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+<p>2 - By subclassing the <code>Model</code> class: in that case, you should define your
+layers in <code>__init__</code> and you should implement the model's forward pass
+in <code>call</code>.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</pre></div>
+<p>If you subclass <code>Model</code>, you can optionally have
+a <code>training</code> argument (boolean) in <code>call</code>, which you can use to specify
+a different behavior in training and inference:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+</pre></div>
+<p>Once the model is created, you can config the model with losses and metrics
+with <code>model.compile()</code>, train the model with <code>model.fit()</code>, or use the model
+to do prediction with <code>model.predict()</code>.</p>
+<p>Checkout <a href="https://www.tensorflow.org/guide/keras/overview">guide</a> for
+additional details.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoder</span> <span class="o">=</span> <span class="n">Encoder</span><span class="p">(</span><span class="n">vocab_inp_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">BATCH_SIZE</span><span class="p">)</span>
+
+<span class="c1"># sample input</span>
+<span class="n">sample_hidden</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">initialize_hidden_state</span><span class="p">()</span>
+<span class="n">sample_output</span><span class="p">,</span> <span class="n">sample_hidden</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">(</span><span class="n">example_input_batch</span><span class="p">,</span> <span class="n">sample_hidden</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Encoder output shape: (batch size, sequence length, units) </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample_output</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Encoder Hidden state shape: (batch size, units) </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample_hidden</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+<span class="c1"># decoder = Decoder(vocab_tar_size, embedding_dim, units, BATCH_SIZE)</span>
+<span class="c1"># sample_decoder_output, _, _ = decoder(tf.random.uniform((BATCH_SIZE, 1)), sample_hidden, sample_output)</span>
+<span class="c1"># print (&#39;Decoder output shape: (batch_size, vocab size) {}&#39;.format(sample_decoder_output.shape))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Encoder output shape: (batch size, sequence length, units) (64, 16, 1024)
+Encoder Hidden state shape: (batch size, units) (64, 1024)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-126-b29a85a1f3ef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> 
+<span class="ansi-green-intense-fg ansi-bold">      9</span> decoder <span class="ansi-blue-fg">=</span> Decoder<span class="ansi-blue-fg">(</span>vocab_tar_size<span class="ansi-blue-fg">,</span> embedding_dim<span class="ansi-blue-fg">,</span> units<span class="ansi-blue-fg">,</span> BATCH_SIZE<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg"> </span>sample_decoder_output<span class="ansi-blue-fg">,</span> _<span class="ansi-blue-fg">,</span> _ <span class="ansi-blue-fg">=</span> decoder<span class="ansi-blue-fg">(</span>tf<span class="ansi-blue-fg">.</span>random<span class="ansi-blue-fg">.</span>uniform<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">(</span>BATCH_SIZE<span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> sample_hidden<span class="ansi-blue-fg">,</span> sample_output<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     11</span> print <span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Decoder output shape: (batch_size, vocab size) {}&#39;</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">(</span>sample_decoder_output<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Github_personal/jovsatools/venv-jovsatools/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    966</span>           with base_layer_utils.autocast_context_manager(
+<span class="ansi-green-intense-fg ansi-bold">    967</span>               self._compute_dtype):
+<span class="ansi-green-fg">--&gt; 968</span><span class="ansi-red-fg">             </span>outputs <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>call<span class="ansi-blue-fg">(</span>cast_inputs<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    969</span>           self<span class="ansi-blue-fg">.</span>_handle_activity_regularization<span class="ansi-blue-fg">(</span>inputs<span class="ansi-blue-fg">,</span> outputs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    970</span>           self<span class="ansi-blue-fg">.</span>_set_mask_metadata<span class="ansi-blue-fg">(</span>inputs<span class="ansi-blue-fg">,</span> outputs<span class="ansi-blue-fg">,</span> input_masks<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-125-98af2f703d52&gt;</span> in <span class="ansi-cyan-fg">call</span><span class="ansi-blue-fg">(self, x, hidden, enc_output)</span>
+<span class="ansi-green-intense-fg ansi-bold">     65</span>   <span class="ansi-green-fg">def</span> call<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> x<span class="ansi-blue-fg">,</span> hidden<span class="ansi-blue-fg">,</span> enc_output<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     66</span>     <span class="ansi-red-fg"># enc_output shape == (batch_size, max_length, hidden_size)</span>
+<span class="ansi-green-fg">---&gt; 67</span><span class="ansi-red-fg">     </span>context_vector<span class="ansi-blue-fg">,</span> attention_weights <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>attention<span class="ansi-blue-fg">(</span>hidden<span class="ansi-blue-fg">,</span> enc_output<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     68</span> 
+<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-red-fg"># x shape after passing through embedding == (batch_size, 1, embedding_dim)</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;NoneType&#39; object is not iterable</pre>
+</div>
+</div>
+
 </div>
 </div>
 

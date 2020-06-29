@@ -12,12 +12,19 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "MNISTDataGenerator": "data_generator.ipynb",
          "KerasPipeline": "function_approximation.ipynb",
          "HighLevelKerasPipeline": "function_approximation.ipynb",
-         "HighLevelKerasPipelineMultiTarget": "function_approximation.ipynb"}
+         "HighLevelKerasPipelineMultiTarget": "function_approximation.ipynb",
+         "download_keras_data": "transformers.ipynb",
+         "unicode_to_ascii": "transformers.ipynb",
+         "preprocess_sentence": "transformers.ipynb",
+         "create_attention_dataset": "transformers.ipynb",
+         "tokenize": "transformers.ipynb",
+         "load_attention_dataset": "transformers.ipynb"}
 
 modules = ["custom_pytorch_training.py",
            "custom_tf_training.py",
            "data_generator.py",
-           "function_approximation.py"]
+           "function_approximation.py",
+           "transformers.py"]
 
 doc_url = "https://jovsa.github.io/jovsatools/"
 

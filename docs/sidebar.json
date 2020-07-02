@@ -6,6 +6,7 @@
     "Data Generator": "/data_generator",
     "Design Document": "/design_document",
     "Function Approximation": "/function_approximation",
-    "Kelly Criterion": "/kelly_criterion"
+    "Kelly Criterion": "/kelly_criterion",
+    "Transformers": "/transformers"
   }
 }

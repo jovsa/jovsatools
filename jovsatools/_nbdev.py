@@ -17,7 +17,8 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
 modules = ["custom_pytorch_training.py",
            "custom_tf_training.py",
            "data_generator.py",
-           "function_approximation.py"]
+           "function_approximation.py",
+           "None.py"]
 
 doc_url = "https://jovsa.github.io/jovsatools/"
 

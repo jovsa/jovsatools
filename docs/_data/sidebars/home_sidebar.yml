@@ -28,7 +28,7 @@ entries:
       title: Kelly Criterion
       url: /kelly_criterion
     - output: web,pdf
-      title: transformers
+      title: Transformers
       url: /transformers
     output: web
     title: jovsatools

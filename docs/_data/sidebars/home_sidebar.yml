@@ -22,6 +22,9 @@ entries:
       title: Design Document
       url: /design_document
     - output: web,pdf
+      title: Dice Experiments
+      url: /dice_experiments
+    - output: web,pdf
       title: Function Approximation
       url: /function_approximation
     - output: web,pdf

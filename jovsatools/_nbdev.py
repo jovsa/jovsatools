@@ -16,6 +16,7 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
 
 modules = ["custom_pytorch_training.py",
            "custom_tf_training.py",
+           "customizing_tf_fit.py",
            "data_generator.py",
            "dice_experiments.py",
            "function_approximation.py"]

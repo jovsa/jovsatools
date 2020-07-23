@@ -3,6 +3,7 @@
     "Overview": "/",
     "Custom Pytorch Training": "/custom_pytorch_training",
     "Custom Tensorflow Training": "/custom_tf_training",
+    "Customizing tf.fit()": "/customizing_tf_fit",
     "Data Generator": "/data_generator",
     "Design Document": "/design_document",
     "Dice Experiments": "/dice_experiments",

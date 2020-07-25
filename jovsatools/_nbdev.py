@@ -12,14 +12,25 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "MNISTDataGenerator": "data_generator.ipynb",
          "KerasPipeline": "function_approximation.ipynb",
          "HighLevelKerasPipeline": "function_approximation.ipynb",
-         "HighLevelKerasPipelineMultiTarget": "function_approximation.ipynb"}
+         "HighLevelKerasPipelineMultiTarget": "function_approximation.ipynb",
+         "truncated": "google_drive_activity_tracking.ipynb",
+         "getOneOf": "google_drive_activity_tracking.ipynb",
+         "getTimeInfo": "google_drive_activity_tracking.ipynb",
+         "getActionInfo": "google_drive_activity_tracking.ipynb",
+         "getUserInfo": "google_drive_activity_tracking.ipynb",
+         "getActorInfo": "google_drive_activity_tracking.ipynb",
+         "getTargetInfo": "google_drive_activity_tracking.ipynb",
+         "initialize_data": "google_drive_activity_tracking.ipynb",
+         "get_drive_activity": "google_drive_activity_tracking.ipynb",
+         "SCOPES": "google_drive_activity_tracking.ipynb"}
 
 modules = ["custom_pytorch_training.py",
            "custom_tf_training.py",
            "customizing_tf_fit.py",
            "data_generator.py",
            "dice_experiments.py",
-           "function_approximation.py"]
+           "function_approximation.py",
+           "google_activity_tracking.py"]
 
 doc_url = "https://jovsa.github.io/jovsatools/"
 

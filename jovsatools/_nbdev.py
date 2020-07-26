@@ -25,6 +25,8 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "convert_dates": "gdrive_activity_tracking.ipynb",
          "get_drive_activity": "gdrive_activity_tracking.ipynb",
          "SCOPES": "gdrive_activity_tracking.ipynb",
+         "identify_actor": "gdrive_activity_tracking.ipynb",
+         "check_data": "gdrive_activity_tracking.ipynb",
          "clean_data": "gdrive_activity_tracking.ipynb",
          "get_data": "gdrive_activity_tracking.ipynb"}
 

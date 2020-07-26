@@ -30,7 +30,7 @@ modules = ["custom_pytorch_training.py",
            "data_generator.py",
            "dice_experiments.py",
            "function_approximation.py",
-           "google_activity_tracking.py"]
+           "google_drive_activity_tracking.py"]
 
 doc_url = "https://jovsa.github.io/jovsatools/"
 

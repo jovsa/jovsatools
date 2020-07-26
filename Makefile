@@ -23,6 +23,7 @@ docs: $(SRC)
 test:
 	nbdev_test_nbs
 
+# command to update pypi package
 release: pypi
 	nbdev_bump_version
 

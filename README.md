@@ -3,9 +3,9 @@
 
 
 ### Usefull Links
-* [Design document](jovsa.github.io/jsmltools/design_document/): outlines the choices, condiderations and tradeoffs made 
+* [Design document](https://jovsa.github.io/jovsatools/design_document/): outlines the choices, condiderations and tradeoffs made 
 
-* [Usefull commands](https://github.com/jovsa/jsmltools/blob/master/Makefile): when running things locally
+* [Usefull commands](https://github.com/jovsa/jovsatools/blob/master/Makefile): when running things locally
 
 * Link to [documentation](https://jovsa.github.io/jovsatools)
 

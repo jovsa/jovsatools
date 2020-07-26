@@ -206,12 +206,10 @@ def clean_data(data, actor_names):
         data['actor_name'] = data.apply(lambda x: identify_actor(x['actor'], actor_names), axis=1)
     return data
 
-
 def get_data(page_size, loc, actor_names, checks):
     data = get_drive_activity(page_size, loc)
     data = clean_data(data, actor_names)
 
     # run checks
     check_data(data, checks, actor_names)
-
     return data

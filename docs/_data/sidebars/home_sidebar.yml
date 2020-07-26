@@ -31,8 +31,8 @@ entries:
       title: Function Approximation
       url: /function_approximation
     - output: web,pdf
-      title: Google Activity Tacking Tools
-      url: /google_drive_activity_tracking
+      title: Google Drive Activity Tacking Tools
+      url: /gdrive_activity_tracking
     - output: web,pdf
       title: Kelly Criterion
       url: /kelly_criterion

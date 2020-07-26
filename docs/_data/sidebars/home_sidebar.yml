@@ -34,6 +34,9 @@ entries:
       title: Google Drive Activity Tacking Tools
       url: /gdrive_activity_tracking
     - output: web,pdf
+      title: Google Activity Tacking Tools
+      url: /google_drive_activity_tracking
+    - output: web,pdf
       title: Kelly Criterion
       url: /kelly_criterion
     - output: web,pdf

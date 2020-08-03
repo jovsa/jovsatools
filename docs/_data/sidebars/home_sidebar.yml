@@ -37,6 +37,9 @@ entries:
       title: Kelly Criterion
       url: /kelly_criterion
     - output: web,pdf
+      title: A Sample Mesa Model
+      url: /sample_mesa_model
+    - output: web,pdf
       title: Transformers
       url: /transformers
     output: web

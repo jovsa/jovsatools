@@ -102,8 +102,7 @@ What is the expected value and the standard deviation of each number rolled?</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">###########################</span>
-<span class="c1"># Analytical Calculation </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Analytical Calculation </span>
 <span class="c1">###########################</span>
 
 <span class="c1"># expected value calculations</span>
@@ -185,8 +184,7 @@ loaded die:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">###########################</span>
-<span class="c1"># Emperical Calculation </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Emperical Calculation </span>
 <span class="c1">###########################</span>
 <span class="n">NUM_TRIALS</span> <span class="o">=</span> <span class="mi">1_000_000</span>
 <span class="n">fair_emp_varience</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">stop</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">fair_die_probs</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">NUM_TRIALS</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
@@ -207,8 +205,7 @@ loaded die:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># checksum</span>
-<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-2</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-2</span>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fair_die_variences</span><span class="p">)</span><span class="o">-</span><span class="n">fair_emp_varience</span> <span class="o">&lt;</span> <span class="n">epsilon</span>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">loaded_die_variences</span><span class="p">)</span><span class="o">-</span><span class="n">loaded_emp_varience</span> <span class="o">&lt;</span> <span class="n">epsilon</span>
 </pre></div>

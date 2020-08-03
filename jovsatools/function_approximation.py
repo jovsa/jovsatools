@@ -13,7 +13,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers.experimental.preprocessing import Rescaling
 
-test_eq(tf.__version__, "2.2.0")
+test_eq(tf.__version__>= "2.2.0", True)
 
 # Cell
 

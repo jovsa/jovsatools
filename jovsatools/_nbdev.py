@@ -28,7 +28,9 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "identify_actor": "gdrive_activity_tracking.ipynb",
          "check_data": "gdrive_activity_tracking.ipynb",
          "clean_data": "gdrive_activity_tracking.ipynb",
-         "get_data": "gdrive_activity_tracking.ipynb"}
+         "get_data": "gdrive_activity_tracking.ipynb",
+         "MoneyAgent": "sample_mesa_model.ipynb",
+         "MoneyModel": "sample_mesa_model.ipynb"}
 
 modules = ["custom_pytorch_training.py",
            "custom_tf_training.py",
@@ -36,7 +38,8 @@ modules = ["custom_pytorch_training.py",
            "data_generator.py",
            "dice_experiments.py",
            "function_approximation.py",
-           "gdrive_activity_tracking.py"]
+           "gdrive_activity_tracking.py",
+           "sample_mesa.py"]
 
 doc_url = "https://jovsa.github.io/jovsatools/"
 

@@ -1,0 +1,3 @@
+[submodule "jovsatools/minitorch/Module-0"]
+	path = jovsatools/minitorch/Module-0
+	url = https://github.com/minitorch/Module-0.git

@@ -41,7 +41,6 @@ def max(x, y):
     ":math:`f(x) =` x if x is greater than y else y"
     return x if x>y else y
 
-
 def sigmoid(x):
     r"""
     :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}`

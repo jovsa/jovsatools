@@ -1,16 +1,16 @@
 {
   "jovsatools": {
     "Overview": "/",
-    "Custom Pytorch Training": "/custom_pytorch_training",
-    "Custom Tensorflow Training": "/custom_tf_training",
-    "Customizing tf.fit()": "/customizing_tf_fit",
-    "Data Generator": "/data_generator",
-    "Design Document": "/design_document",
-    "Dice Experiments": "/dice_experiments",
-    "Function Approximation": "/function_approximation",
-    "Google Drive Activity Tacking Tools": "/gdrive_activity_tracking",
-    "Kelly Criterion": "/kelly_criterion",
-    "A Sample Mesa Model": "/sample_mesa_model",
-    "Transformers": "/transformers"
+    "Custom Pytorch Training": "custom_pytorch_training.html",
+    "Custom Tensorflow Training": "custom_tf_training.html",
+    "Customizing tf.fit()": "customizing_tf_fit.html",
+    "Data Generator": "data_generator.html",
+    "Design Document": "design_document.html",
+    "Dice Experiments": "dice_experiments.html",
+    "Function Approximation": "function_approximation.html",
+    "Google Drive Activity Tacking Tools": "gdrive_activity_tracking.html",
+    "Kelly Criterion": "kelly_criterion.html",
+    "A Sample Mesa Model": "sample_mesa_model.html",
+    "Transformers": "transformers.html"
   }
 }

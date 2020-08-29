@@ -11,37 +11,37 @@ entries:
       url: /
     - output: web,pdf
       title: Custom Pytorch Training
-      url: /custom_pytorch_training
+      url: custom_pytorch_training.html
     - output: web,pdf
       title: Custom Tensorflow Training
-      url: /custom_tf_training
+      url: custom_tf_training.html
     - output: web,pdf
       title: Customizing tf.fit()
-      url: /customizing_tf_fit
+      url: customizing_tf_fit.html
     - output: web,pdf
       title: Data Generator
-      url: /data_generator
+      url: data_generator.html
     - output: web,pdf
       title: Design Document
-      url: /design_document
+      url: design_document.html
     - output: web,pdf
       title: Dice Experiments
-      url: /dice_experiments
+      url: dice_experiments.html
     - output: web,pdf
       title: Function Approximation
-      url: /function_approximation
+      url: function_approximation.html
     - output: web,pdf
       title: Google Drive Activity Tacking Tools
-      url: /gdrive_activity_tracking
+      url: gdrive_activity_tracking.html
     - output: web,pdf
       title: Kelly Criterion
-      url: /kelly_criterion
+      url: kelly_criterion.html
     - output: web,pdf
       title: A Sample Mesa Model
-      url: /sample_mesa_model
+      url: sample_mesa_model.html
     - output: web,pdf
       title: Transformers
-      url: /transformers
+      url: transformers.html
     output: web
     title: jovsatools
   output: web

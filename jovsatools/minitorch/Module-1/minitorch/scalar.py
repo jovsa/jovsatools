@@ -1,6 +1,7 @@
 from .autodiff import FunctionBase, Variable, History
 from . import operators
 import numpy as np
+from pdb import set_trace
 
 
 ## Task 1.1
@@ -22,8 +23,14 @@ def central_difference(f, *vals, arg=0, epsilon=1e-6):
     Returns:
        float : An approximation of :math:`f'_i(x_1, \ldots, x_n)`
     """
-    # TODO: Implement for Task 1.1.
-    raise NotImplementedError('Need to implement for Task 1.1')
+    vals_1 = [v for v in vals]
+    vals_2 = [v for v in vals]
+
+    vals_1[arg] += epsilon
+    vals_2[arg] -= epsilon
+
+    delta = f(*(vals_1)) - f(*(vals_2))
+    return delta / (2 * epsilon)
 
 
 ## Task 1.2 and 1.4

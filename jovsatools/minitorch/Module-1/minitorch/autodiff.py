@@ -179,12 +179,21 @@ class FunctionBase:
             for each :class:`Variable` object in input (other inputs should be ignored)
 
         """
+
+        # NOTE (jovsa): review this function;
+        # things to do:
+        # 1- see what the inputs are
+        # 2 - see the algo
+        # 3 - figure out mising pieces in your mental model
         d_inputs = cls.backward(ctx, d_output)
         d_inputs = wrap_tuple(d_inputs)
+        res = []
         for inp, d_input in zip(inputs, d_inputs):
             if not isinstance(inp, Variable) or inp.history is None:
                 continue
-            yield VariableWithDeriv(inp, d_input)
+            res.append(VariableWithDeriv(inp, d_input))
+        return res
+
 
 
 def is_leaf(val):
@@ -202,11 +211,16 @@ def backpropagate(final_variable_with_deriv):
        final_variable_with_deriv (:class:`VariableWithDeriv`): The final variable
            and its derivative that we want to propagate backward to the leaves.
     """
+
+    # NOTE (jovsa): review this function;
+        # things to do:
+        # 1- see what the inputs are
+        # 2 - see the algo
+        # 3 - figure out mising pieces in your mental model
     queue = [final_variable_with_deriv]
     while queue:
-        cur = queue[0]
+        cur = queue.pop(0)
         var = cur.variable
-        queue = queue[1:]
         if is_leaf(var):
             cur.variable._add_deriv(cur.deriv)
         else:

@@ -218,17 +218,14 @@ def backpropagate(final_variable_with_deriv):
         # 2 - see the algo
         # 3 - figure out mising pieces in your mental model
     queue = [final_variable_with_deriv]
+    visited = set()
     while queue:
         cur = queue.pop(0)
         var = cur.variable
+        visited.add(var.name)
         if is_leaf(var):
             cur.variable._add_deriv(cur.deriv)
         else:
             for prev in var.history.chain_rule(cur.deriv):
-                seen = False
-                for s in queue:
-                    if s.variable.name == prev.variable.name:
-                        s.deriv += prev.deriv
-                        seen = True
-                if not seen:
+                if prev.variable.name not in visited:
                     queue.append(prev)

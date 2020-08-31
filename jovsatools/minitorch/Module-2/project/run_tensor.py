@@ -24,7 +24,10 @@ class Network(minitorch.Module):
         self.layer3 = Linear(HIDDEN, 1)
 
     def forward(self, x):
-        raise NotImplementedError('Need to include this file from past assignment.')
+        h = [h.relu() for h in self.layer1.forward(x)]
+        h = [h.relu() for h in self.layer2.forward(h)]
+        return self.layer3.forward(h)[0].sigmoid()
+
 
 
 class Linear(minitorch.Module):

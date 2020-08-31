@@ -179,7 +179,15 @@ class FunctionBase:
             for each :class:`Variable` object in input (other inputs should be ignored)
 
         """
-        raise NotImplementedError('Need to include this file from past assignment.')
+        d_inputs = cls.backward(ctx, d_output)
+        d_inputs = wrap_tuple(d_inputs)
+        res = []
+        for inp, d_input in zip(inputs, d_inputs):
+            if not isinstance(inp, Variable) or inp.history is None:
+                continue
+            res.append(VariableWithDeriv(inp, d_input))
+        return res
+
 
 
 def is_leaf(val):
@@ -197,4 +205,16 @@ def backpropagate(final_variable_with_deriv):
        final_variable_with_deriv (:class:`VariableWithDeriv`): The final variable
            and its derivative that we want to propagate backward to the leaves.
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+
+    queue = [final_variable_with_deriv]
+    visited = set()
+    while queue:
+        cur = queue.pop(0)
+        var = cur.variable
+        visited.add(var.name)
+        if is_leaf(var):
+            cur.variable._add_deriv(cur.deriv)
+        else:
+            for prev in var.history.chain_rule(cur.deriv):
+                if prev.variable.name not in visited:
+                    queue.append(prev)

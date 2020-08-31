@@ -6,37 +6,38 @@ import math
 
 def mul(x, y):
     ":math:`f(x, y) = x * y`"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return x * y
 
 
 def id(x):
     ":math:`f(x) = x`"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return x
 
 
 def add(x, y):
     ":math:`f(x, y) = x + y`"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return x + y
 
 
 def neg(x):
     ":math:`f(x) = -x`"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return -1 * x
 
 
 def lt(x, y):
     ":math:`f(x) =` 1.0 if x is greater than y else 0.0"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    # TODO: Implement for Task 0.1.
+    return 1.0 if x > y else 0.0
 
 
 def eq(x, y):
     ":math:`f(x) =` 1.0 if x is equal to y else 0.0"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return 1.0 if x == y else 0.0
 
 
 def max(x, y):
     ":math:`f(x) =` x if x is greater than y else y"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return x if x > y else y
 
 
 def sigmoid(x):
@@ -52,7 +53,10 @@ def sigmoid(x):
     for stability.
 
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+    if x >= 0.0:
+        return 1.0 / (1.0 + math.exp(-x))
+    else:
+        return (math.exp(x)) / (1.0 + math.exp(x))
 
 
 def relu(x):
@@ -61,12 +65,12 @@ def relu(x):
 
     (See `<https://en.wikipedia.org/wiki/Rectifier_(neural_networks)>`_ .)
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return x if x > 0.0 else 0.0
 
 
 def relu_back(x, y):
     ":math:`f(x) =` y if x is greater than 0 else 0"
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return y if x > 0.0 else 0.0
 
 
 EPS = 1e-6
@@ -114,7 +118,14 @@ def map(fn):
     Returns:
         function : a function that takes a list and applies `fn` to each element
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+
+    def _map(ls):
+        ret = []
+        for x in ls:
+            ret.append(fn(x))
+        return ret
+
+    return _map
 
 
 def negList(ls):
@@ -138,7 +149,16 @@ def zipWith(fn):
         applying fn(x, y) one each pair of elements.
 
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+
+    def _zipWith(l1, l2):
+
+        assert len(l1) == len(l2)
+
+        ret = []
+        for x, y in zip(l1, l2):
+            ret.append(fn(x, y))
+        return ret
+    return _zipWith
 
 
 def addLists(ls1, ls2):
@@ -163,18 +183,25 @@ def reduce(fn, start):
         fn(x_1, x_0)))`
 
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+
+    def _reduce(ls):
+        val = start
+        for l in ls:
+            val = fn(val, l)
+        return val
+
+    return _reduce
 
 
 def sum(ls):
     """
     Sum up a list using :func:`reduce` and :func:`add`.
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return reduce(add, 0.0)(ls)
 
 
 def prod(ls):
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """
-    raise NotImplementedError('Need to include this file from past assignment.')
+    return reduce(mul, 1.0)(ls)

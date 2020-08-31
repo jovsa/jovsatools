@@ -179,12 +179,6 @@ class FunctionBase:
             for each :class:`Variable` object in input (other inputs should be ignored)
 
         """
-
-        # NOTE (jovsa): review this function;
-        # things to do:
-        # 1- see what the inputs are
-        # 2 - see the algo
-        # 3 - figure out mising pieces in your mental model
         d_inputs = cls.backward(ctx, d_output)
         d_inputs = wrap_tuple(d_inputs)
         res = []
@@ -212,11 +206,6 @@ def backpropagate(final_variable_with_deriv):
            and its derivative that we want to propagate backward to the leaves.
     """
 
-    # NOTE (jovsa): review this function;
-        # things to do:
-        # 1- see what the inputs are
-        # 2 - see the algo
-        # 3 - figure out mising pieces in your mental model
     queue = [final_variable_with_deriv]
     visited = set()
     while queue:

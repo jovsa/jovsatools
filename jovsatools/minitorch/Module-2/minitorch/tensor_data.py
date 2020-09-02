@@ -23,8 +23,6 @@ def index_to_position(index, strides):
     Return:
         int : position in storage
     """
-
-    assert len(index) == len(strides)
     position = 0
     for i, s in zip(index, strides):
         position += i*s
@@ -68,8 +66,11 @@ def broadcast_index(big_index, big_shape, shape, out_index):
        shape (array-like): tensor shape of smaller tensor
        out_index (array-like): multidimensional index of smaller tensor
     """
-    # TODO: Implement for Task 2.4.
-    raise NotImplementedError('Need to implement for Task 2.4')
+    for i, s in enumerate(shape):
+        if s > 1:
+            out_index[i] = big_index[i + (len(big_shape) - len(shape))]
+        else:
+            out_index[i] = 0
 
 
 def shape_broadcast(shape1, shape2):
@@ -84,8 +85,23 @@ def shape_broadcast(shape1, shape2):
        tuple: broadcasted shape
 
     """
-    # TODO: Implement for Task 2.4.
-    raise NotImplementedError('Need to implement for Task 2.4')
+    a, b = shape1, shape2
+    m = max(len(a), len(b))
+    c_rev = [0] * m
+    a_rev = list(reversed(a))
+    b_rev = list(reversed(b))
+    for i in range(m):
+        if i >= len(a):
+            c_rev[i] = b_rev[i]
+        elif i >= len(b):
+            c_rev[i] = a_rev[i]
+        else:
+            c_rev[i] = max(a_rev[i], b_rev[i])
+            if a_rev[i] != c_rev[i] and a_rev[i] != 1:
+                raise IndexingError("Broadcast failure {a} {b}")
+            if b_rev[i] != c_rev[i] and b_rev[i] != 1:
+                raise IndexingError("Broadcast failure {a} {b}")
+    return tuple(reversed(c_rev))
 
 
 def strides_from_shape(shape):

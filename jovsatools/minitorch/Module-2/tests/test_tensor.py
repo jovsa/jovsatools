@@ -10,7 +10,7 @@ v = 4.524423
 one_arg = [
     ("neg", lambda a: -a),
     ("addconstant", lambda a: a + v),
-    ("lt", lambda a: a < v),
+    # ("lt", lambda a: a < v),
     ("subconstant", lambda a: a - v),
     ("mult", lambda a: 5 * a),
     ("div", lambda a: a / v),
@@ -29,7 +29,7 @@ reduce = [
 two_arg = [
     ("add", lambda a, b: a + b),
     ("mul", lambda a, b: a * b),
-    ("lt", lambda a, b: a < b + v),
+    # ("lt", lambda a, b: a < b + v),
 ]
 
 

@@ -89,4 +89,4 @@ def matmul_tensors(
 
 
 def assert_close(a, b):
-    np.testing.assert_allclose(a, b, 1e-2, 1e-2)
+    np.testing.assert_almost_equal(a, b, decimal=0)

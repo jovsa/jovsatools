@@ -1,3 +1,4 @@
+import numba
 from numba import cuda
 
 from .tensor_data import (
@@ -20,12 +21,12 @@ def _matrix_multiply(
     out, out_shape, out_strides, out_size, a, a_shape, a_strides, b, b_shape, b_strides
 ):
 
-    out_index = cuda.local.array(MAX_DIMS, np.int32)
+    out_index = cuda.local.array(MAX_DIMS, numba.int32)
     dim1, dim2 = len(out_shape) - 2, len(out_shape) - 1
     i = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
-    out_index = cuda.local.array(MAX_DIMS, np.int32)
-    a_index = cuda.local.array(MAX_DIMS, np.int32)
-    b_index = cuda.local.array(MAX_DIMS, np.int32)
+    out_index = cuda.local.array(MAX_DIMS, numba.int32)
+    a_index = cuda.local.array(MAX_DIMS, numba.int32)
+    b_index = cuda.local.array(MAX_DIMS, numba.int32)
     if i < out_size:
         count(i, out_shape, out_index)
         o = index_to_position(out_index, out_strides)
@@ -44,3 +45,35 @@ def _matrix_multiply(
 
         for off in range(a_shape[-1]):
             out[o] += a[j + off * a_strides[-1]] * b[k + off * b_strides[-2]]
+
+
+def matrix_multiply(a, b):
+    ls = list(a.shape)
+    assert a.shape[-1] == b.shape[-2]
+    ls[-1] = b.shape[-1]
+    out = a.zeros(tuple(ls))
+    threadsperblock = 32
+    blockspergrid = (out.size + (threadsperblock - 1)) // threadsperblock
+    _matrix_multiply[blockspergrid, threadsperblock](
+        *out.tuple(), out.size, *a.tuple(), *b.tuple()
+    )
+
+    return out
+
+
+class MatMul(Function):
+    @staticmethod
+    def forward(ctx, t1, t2):
+        ctx.save_for_backward(t1, t2)
+        return matrix_multiply(t1, t2)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        t1, t2 = ctx.saved_values
+        return (
+            matrix_multiply(grad_output, t2.permute(0, 2, 1)),
+            matrix_multiply(t1.permute(0, 2, 1), grad_output),
+        )
+
+
+cuda_matmul = MatMul.apply

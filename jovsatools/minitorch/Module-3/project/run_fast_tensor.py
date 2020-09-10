@@ -33,7 +33,9 @@ class Network(minitorch.Module):
             self.layer3 = MMLinear(HIDDEN, 1)
 
     def forward(self, x):
-        raise NotImplementedError('Need to include this file from past assignment.')
+        h = self.layer1.forward(x).relu()
+        h = self.layer2.forward(h).relu()
+        return self.layer3.forward(h).sigmoid()
 
 
 class Linear(minitorch.Module):
@@ -44,7 +46,11 @@ class Linear(minitorch.Module):
         self.out_size = out_size
 
     def forward(self, x):
-        raise NotImplementedError('Need to include this file from past assignment.')
+        batch, in_size = x.shape
+        return (
+            self.weights.value.view(1, in_size, self.out_size)
+            * x.view(batch, in_size, 1)
+        ).sum(1).view(batch, self.out_size) + self.bias.value.view(1, self.out_size)
 
 
 class MMLinear(minitorch.Module):
@@ -55,8 +61,11 @@ class MMLinear(minitorch.Module):
         self.out_size = out_size
 
     def forward(self, x):
-        # TODO: Implement for Task 3.5.
-        raise NotImplementedError('Need to implement for Task 3.5')
+        batch, in_size = x.shape
+        return minitorch.cuda_matmul(
+            x.view(batch, 1, in_size),
+            self.weights.value.view(1, in_size, self.out_size),
+        ).view(batch, self.out_size) + self.bias.value.view(1, self.out_size)
 
 
 model = Network()

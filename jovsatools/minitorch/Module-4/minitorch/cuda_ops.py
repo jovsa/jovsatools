@@ -1,4 +1,5 @@
-import numpy as np
+import numba
+from numba import cuda
 from .tensor_data import (
     count,
     index_to_position,
@@ -6,11 +7,12 @@ from .tensor_data import (
     shape_broadcast,
     MAX_DIMS,
 )
-from numba import njit, prange
+import numpy
+import numpy as np
 
-count = njit()(count)
-index_to_position = njit()(index_to_position)
-broadcast_index = njit()(broadcast_index)
+count = cuda.jit(device=True)(count)
+index_to_position = cuda.jit(device=True)(index_to_position)
+broadcast_index = cuda.jit(device=True)(broadcast_index)
 
 
 def tensor_map(fn):
@@ -22,40 +24,36 @@ def tensor_map(fn):
         out (array): storage for out tensor.
         out_shape (array): shape for out tensor.
         out_strides (array): strides for out tensor.
+        out_size (int): size of out
         in_storage (array): storage for in tensor.
         in_shape (array): shape for in tensor.
         in_strides (array): strides for in tensor.
     """
 
-    def _map(out, out_shape, out_strides, in_storage, in_shape, in_strides):
-        if (
-            len(out_strides) != len(in_strides)
-            or (out_strides != in_strides).any()
-            or (out_shape != in_shape).any()
-        ):
-            for i in prange(len(out)):
-                out_index = np.zeros(MAX_DIMS, np.int32)
-                in_index = np.zeros(MAX_DIMS, np.int32)
-                count(i, out_shape, out_index)
-                broadcast_index(out_index, out_shape, in_shape, in_index)
-                o = index_to_position(out_index, out_strides)
-                j = index_to_position(in_index, in_strides)
-                out[o] = fn(in_storage[j])
-        else:
-            for i in prange(len(out)):
-                out[i] = fn(in_storage[i])
+    def _map(out, out_shape, out_strides, out_size, in_storage, in_shape, in_strides):
+        out_index = cuda.local.array(MAX_DIMS, numba.int32)
+        in_index = cuda.local.array(MAX_DIMS, numba.int32)
+        i = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
+        if i < out_size:
+            count(i, out_shape, out_index)
+            broadcast_index(out_index, out_shape, in_shape, in_index)
+            o = index_to_position(out_index, out_strides)
+            j = index_to_position(in_index, in_strides)
+            out[o] = fn(in_storage[j])
 
-
-    return njit(parallel=True)(_map)
+    return cuda.jit()(_map)
 
 
 def map(fn):
-    f = tensor_map(njit()(fn))
+    f = tensor_map(cuda.jit(device=True)(fn))
 
     def ret(a, out=None):
         if out is None:
             out = a.zeros(a.shape)
-        f(*out.tuple(), *a.tuple())
+
+        threadsperblock = 32
+        blockspergrid = (out.size + (threadsperblock - 1)) // threadsperblock
+        f[blockspergrid, threadsperblock](*out.tuple(), out.size, *a.tuple())
         return out
 
     return ret
@@ -70,6 +68,7 @@ def tensor_zip(fn):
         out (array): storage for `out` tensor.
         out_shape (array): shape for `out` tensor.
         out_strides (array): strides for `out` tensor.
+        out_size (int) : size of `out`  tensor
         a_storage (array): storage for `a` tensor.
         a_shape (array): shape for `a` tensor.
         a_strides (array): strides for `a` tensor.
@@ -78,41 +77,46 @@ def tensor_zip(fn):
         b_strides (array): strides for `b` tensor.
     """
 
-    def _zip(out, out_shape, out_strides, a, a_shape, a_strides, b, b_shape, b_strides):
-        if (
-            len(out_strides) != len(a_strides)
-            or (out_strides != a_strides).any()
-            or (out_shape != a_shape).any()
-            or len(out_strides) != len(b_strides)
-            or (out_strides != b_strides).any()
-            or (out_shape != b_shape).any()
-        ):
-            for i in prange(len(out)):
-                out_index = np.zeros(MAX_DIMS, np.int32)
-                a_index = np.zeros(MAX_DIMS, np.int32)
-                b_index = np.zeros(MAX_DIMS, np.int32)
-                count(i, out_shape, out_index)
-                o = index_to_position(out_index, out_strides)
-                broadcast_index(out_index, out_shape, a_shape, a_index)
-                j = index_to_position(a_index, a_strides)
-                broadcast_index(out_index, out_shape, b_shape, b_index)
-                k = index_to_position(b_index, b_strides)
-                out[o] = fn(a[j], b[k])
-        else:
-            for i in prange(len(out)):
-                out[i] = fn(a[i], b[i])
+    def _zip(
+        out,
+        out_shape,
+        out_strides,
+        out_size,
+        a,
+        a_shape,
+        a_strides,
+        b,
+        b_shape,
+        b_strides,
+    ):
+        out_index = cuda.local.array(MAX_DIMS, numba.int32)
+        a_index = cuda.local.array(MAX_DIMS, numba.int32)
+        b_index = cuda.local.array(MAX_DIMS, numba.int32)
+        i = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
 
-    return njit(parallel=True)(_zip)
+        if i < out_size:
+            count(i, out_shape, out_index)
+            o = index_to_position(out_index, out_strides)
+            broadcast_index(out_index, out_shape, a_shape, a_index)
+            j = index_to_position(a_index, a_strides)
+            broadcast_index(out_index, out_shape, b_shape, b_index)
+            k = index_to_position(b_index, b_strides)
+            out[o] = fn(a[j], b[k])
+
+    return cuda.jit()(_zip)
 
 
 def zip(fn):
-
-    f = tensor_zip(njit()(fn))
+    f = tensor_zip(cuda.jit(device=True)(fn))
 
     def ret(a, b):
         c_shape = shape_broadcast(a.shape, b.shape)
         out = a.zeros(c_shape)
-        f(*out.tuple(), *a.tuple(), *b.tuple())
+        threadsperblock = 32
+        blockspergrid = (out.size + (threadsperblock - 1)) // threadsperblock
+        f[blockspergrid, threadsperblock](
+            *out.tuple(), out.size, *a.tuple(), *b.tuple()
+        )
         return out
 
     return ret
@@ -127,6 +131,7 @@ def tensor_reduce(fn):
         out (array): storage for `out` tensor.
         out_shape (array): shape for `out` tensor.
         out_strides (array): strides for `out` tensor.
+        out_size (int) : size of `out` tensor
         a_storage (array): storage for `a` tensor.
         a_shape (array): shape for `a` tensor.
         a_strides (array): strides for `a` tensor.
@@ -135,15 +140,23 @@ def tensor_reduce(fn):
     """
 
     def _reduce(
-        out, out_shape, out_strides, a, a_shape, a_strides, reduce_shape, reduce_size
+        out,
+        out_shape,
+        out_strides,
+        out_size,
+        a,
+        a_shape,
+        a_strides,
+        reduce_shape,
+        reduce_size,
     ):
-        for i in prange(len(out)):
-            out_index = np.zeros(MAX_DIMS, np.int32)
-            a_index = np.zeros(MAX_DIMS, np.int32)
+        out_index = cuda.local.array(MAX_DIMS, numba.int32)
+        a_index = cuda.local.array(MAX_DIMS, numba.int32)
+        i = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
 
+        if i < out_size:
             count(i, out_shape, out_index)
             o = index_to_position(out_index, out_strides)
-
             for s in range(reduce_size):
                 count(s, reduce_shape, a_index)
                 for k in range(len(reduce_shape)):
@@ -152,11 +165,11 @@ def tensor_reduce(fn):
                 j = index_to_position(out_index, a_strides)
                 out[o] = fn(out[o], a[j])
 
-    return njit(parallel=True)(_reduce)
+    return cuda.jit()(_reduce)
 
 
 def reduce(fn, start=0.0):
-    f = tensor_reduce(njit()(fn))
+    f = tensor_reduce(cuda.jit(device=True)(fn))
 
     def ret(a, dims=None, out=None):
         if out is None:
@@ -166,7 +179,6 @@ def reduce(fn, start=0.0):
             # Other values when not sum.
             out = a.zeros(tuple(out_shape))
             out._tensor._storage[:] = start
-
         diff = len(a.shape) - len(out.shape)
 
         reduce_shape = []
@@ -177,14 +189,19 @@ def reduce(fn, start=0.0):
                 reduce_size *= s
             else:
                 reduce_shape.append(1)
-        # assert len(out.shape) == len(a.shape)
-        f(*out.tuple(), *a.tuple(), np.array(reduce_shape), reduce_size)
+        assert len(out.shape) == len(a.shape)
+        threadsperblock = 32
+        blockspergrid = (out.size + (threadsperblock - 1)) // threadsperblock
+
+        f[blockspergrid, threadsperblock](
+            *out.tuple(), out.size, *a.tuple(), np.array(reduce_shape), reduce_size
+        )
         return out
 
     return ret
 
 
-class FastOps:
+class CudaOps:
     map = map
     zip = zip
     reduce = reduce

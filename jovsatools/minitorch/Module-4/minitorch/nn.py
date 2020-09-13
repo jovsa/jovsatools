@@ -35,14 +35,14 @@ class Max(Function):
     @staticmethod
     def forward(ctx, input, dim):
         "Forward of max should be max reduction"
-        # TODO: Implement for Task 4.1.
-        raise NotImplementedError('Need to implement for Task 4.1')
+        out = max_reduce(input, [dim])
+        ctx.save_for_backward(input, out)
 
     @staticmethod
     def backward(ctx, grad_output):
         "Backward of max should be argmax (see above)"
-        # TODO: Implement for Task 4.1.
-        raise NotImplementedError('Need to implement for Task 4.1')
+        input, out = ctx.saved_values
+        return (out == input) * grad_output, None
 
 
 max = Max.apply
@@ -63,8 +63,9 @@ def softmax(input, dim):
     Returns:
        :class:`Tensor` : softmax tensor
     """
-    # TODO: Implement for Task 4.1.
-    raise NotImplementedError('Need to implement for Task 4.1')
+    e = input.exp()
+    partition = e.sum(dim=dim)
+    return e / partition
 
 
 def logsoftmax(input, dim):
@@ -84,8 +85,10 @@ def logsoftmax(input, dim):
     Returns:
        :class:`Tensor` : log of softmax tensor
     """
-    # TODO: Implement for Task 4.1.
-    raise NotImplementedError('Need to implement for Task 4.1')
+    e = input
+    mx = max(e, dim)
+    lse = (e - mx).exp().sum(dim=dim).log() + mx
+    return e - lse
 
 
 def tile(input, kernel):

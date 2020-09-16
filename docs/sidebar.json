@@ -12,6 +12,6 @@
     "Kelly Criterion": "kelly_criterion.html",
     "Minitorch": "minitorch.html",
     "A Sample Mesa Model": "sample_mesa_model.html",
-    "Transformers": "transformers.html"
+    "transformers": "transformers.html"
   }
 }

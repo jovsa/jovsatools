@@ -37,6 +37,9 @@ entries:
       title: Kelly Criterion
       url: kelly_criterion.html
     - output: web,pdf
+      title: Minitorch
+      url: minitorch.html
+    - output: web,pdf
       title: A Sample Mesa Model
       url: sample_mesa_model.html
     - output: web,pdf

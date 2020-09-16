@@ -24,6 +24,6 @@
 
 * Have ideas? [more information here](https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#pr-submission-guidelines)
 
-* Known bugs🕸️: There are some documentation rendering issues. Please go to the notebooks directly in such cases.
+* [Known bugs🕸️](https://github.com/jovsa/jovsatools/issues). Dig you find a [bug?] (https://github.com/jovsa/jovsatools/blob/master/CONTRIBUTING.md#did-you-find-a-bug)
 
 [🔮](https://jovsa.github.io/)

@@ -43,7 +43,7 @@ entries:
       title: A Sample Mesa Model
       url: sample_mesa_model.html
     - output: web,pdf
-      title: Transformers
+      title: transformers
       url: transformers.html
     output: web
     title: jovsatools

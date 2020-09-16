@@ -1,4 +1,5 @@
-from minitorch import operators
+from jovsatools.minitorch import minitorch
+from jovsatools.minitorch.minitorch import operators
 from hypothesis import given
 from hypothesis.strategies import lists
 from .strategies import small_floats, assert_close

@@ -1,4 +1,4 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 import pytest
 from hypothesis import given
 from hypothesis.strategies import floats, lists

@@ -1,4 +1,4 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 from hypothesis import settings
 from hypothesis.strategies import composite, floats, integers, lists
 import numpy as np

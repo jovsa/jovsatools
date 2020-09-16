@@ -1,6 +1,6 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 import pytest
-from minitorch import History, Variable
+from jovsatools.minitorch.minitorch import History, Variable
 
 
 class Temp(minitorch.FunctionBase):

@@ -1,4 +1,4 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 import pytest
 from .strategies import assert_close
 

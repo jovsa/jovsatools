@@ -1,8 +1,8 @@
+from jovsatools.minitorch import minitorch
 from hypothesis import given
 from hypothesis.strategies import integers, lists
 from .strategies import scalars
 import random
-import minitorch
 
 
 class Network(minitorch.Module):

@@ -1,4 +1,4 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 from hypothesis import given
 from .strategies import tensors, assert_close
 import pytest

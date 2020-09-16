@@ -1,4 +1,4 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 from hypothesis import given
 from hypothesis.strategies import data
 from .strategies import tensor_data, indices

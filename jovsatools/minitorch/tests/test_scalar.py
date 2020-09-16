@@ -1,6 +1,6 @@
+from jovsatools.minitorch import minitorch
 from hypothesis import given
 from .strategies import scalars, assert_close
-import minitorch
 import pytest
 
 

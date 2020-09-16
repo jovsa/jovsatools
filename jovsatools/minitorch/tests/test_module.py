@@ -1,4 +1,4 @@
-import minitorch
+from jovsatools.minitorch import minitorch
 import pytest
 
 VAL = 40

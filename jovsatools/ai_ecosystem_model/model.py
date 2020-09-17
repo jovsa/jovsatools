@@ -5,7 +5,7 @@ from mesa.datacollection import DataCollector
 
 
 def compute_gini(model):
-    agent_wealths = [agent.wealth for agent in mel.schedule.agents]
+    agent_wealths = [agent.wealth for agent in model.schedule.agents]
     x = sorted(agent_wealths)
     N = model.num_agents
     B = sum(xi * (N - i) for i, xi in enumerate(x)) / (N * sum(x))
@@ -14,7 +14,6 @@ def compute_gini(model):
 
 class BoltzmannWealthModel(Model):
     """A simple model of an economy where agents exchange currency at random.
-
     All the agents begin with one unit of currency, and each time step can give
     a unit of currency to another agent. Note how, over time, this produces a
     highly skewed distribution of wealth.

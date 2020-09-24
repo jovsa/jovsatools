@@ -1,7 +1,9 @@
 from mesa import Agent, Model
-from mesa.time import RandomActivation
+from mesa.time import RandomActivation, SimultaneousActivation
 from mesa.space import MultiGrid
 from mesa.datacollection import DataCollector
+
+from pdb import set_trace
 
 
 def compute_gini(model):
@@ -11,6 +13,11 @@ def compute_gini(model):
     B = sum(xi * (N - i) for i, xi in enumerate(x)) / (N * sum(x))
     return 1 + (1 / N) - 2 * B
 
+def compute_wealth(model):
+    agent_wealths = [agent.wealth for agent in model.schedule.agents]
+    return sum(agent_wealths)
+
+
 
 class BoltzmannWealthModel(Model):
     """A simple model of an economy where agents exchange currency at random.
@@ -19,21 +26,29 @@ class BoltzmannWealthModel(Model):
     highly skewed distribution of wealth.
     """
 
+    def create_agent(self, agent):
+        self.schedule.add(agent)
+
+        # Add the agent to a random grid cell
+        x = self.random.randrange(self.grid.width)
+        y = self.random.randrange(self.grid.height)
+        self.grid.place_agent(agent, (x, y))
+
     def __init__(self, N=100, width=10, height=10):
         self.num_agents = N
         self.grid = MultiGrid(height, width, True)
-        self.schedule = RandomActivation(self)
+        self.schedule = SimultaneousActivation(self)
+        self.model_wealth = 0
         self.datacollector = DataCollector(
-            model_reporters={"Gini": compute_gini}, agent_reporters={"Wealth": "wealth"}
+            model_reporters={"Gini": compute_gini}
         )
         # Create agents
         for i in range(self.num_agents):
-            a = MoneyAgent(i, self)
-            self.schedule.add(a)
-            # Add the agent to a random grid cell
-            x = self.random.randrange(self.grid.width)
-            y = self.random.randrange(self.grid.height)
-            self.grid.place_agent(a, (x, y))
+            if i%10:
+                resource = Resource(i, self)
+                self.create_agent(resource)
+            engineer = Engineer(i, self)
+            self.create_agent(engineer)
 
         self.running = True
         self.datacollector.collect(self)
@@ -48,9 +63,7 @@ class BoltzmannWealthModel(Model):
             self.step()
 
 
-class MoneyAgent(Agent):
-    """ An agent with fixed initial wealth."""
-
+class Engineer(Agent):
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
         self.wealth = 1
@@ -66,10 +79,47 @@ class MoneyAgent(Agent):
         cellmates = self.model.grid.get_cell_list_contents([self.pos])
         if len(cellmates) > 1:
             other = self.random.choice(cellmates)
-            other.wealth += 1
-            self.wealth -= 1
+            other.wealth -= 100
+            self.wealth += 10
+
+    def step(self):
+        self.move()
+        # if self.wealth > 0:
+        #     self.give_money()
+
+
+class Resource(Agent):
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
+        self.wealth = -1
+
+    def move(self):
+        possible_steps = self.model.grid.get_neighborhood(
+            self.pos, moore=True, include_center=False
+        )
+        new_position = self.random.choice(possible_steps)
+        self.model.grid.move_agent(self, new_position)
+
+    def give_money(self):
+        cellmates = self.model.grid.get_cell_list_contents([self.pos])
+        if len(cellmates) > 1:
+            other = self.random.choice(cellmates)
+            other.wealth += 10
+            # self.wealth = 10
 
     def step(self):
         self.move()
         if self.wealth > 0:
             self.give_money()
+
+# class SoftwareEngineer(Engineer):
+
+# class InfrastructureEngineer(Engineer):
+
+# class MachineLearningEngineer(Engineer):
+
+# class Data(Resource):
+
+# class Compute(Resource):
+
+# class Algorithm(Resource)

@@ -10,6 +10,9 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: Billy Bean
+      url: billy_bean.html
+    - output: web,pdf
       title: Custom Pytorch Training
       url: custom_pytorch_training.html
     - output: web,pdf
@@ -42,9 +45,6 @@ entries:
     - output: web,pdf
       title: A Sample Mesa Model
       url: sample_mesa_model.html
-    - output: web,pdf
-      title: transformers
-      url: transformers.html
     output: web
     title: jovsatools
   output: web

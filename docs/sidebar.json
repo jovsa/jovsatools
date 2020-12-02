@@ -1,6 +1,7 @@
 {
   "jovsatools": {
     "Overview": "/",
+    "Billy Bean": "billy_bean.html",
     "Custom Pytorch Training": "custom_pytorch_training.html",
     "Custom Tensorflow Training": "custom_tf_training.html",
     "Customizing tf.fit()": "customizing_tf_fit.html",
@@ -11,7 +12,6 @@
     "Google Drive Activity Tacking Tools": "gdrive_activity_tracking.html",
     "Kelly Criterion": "kelly_criterion.html",
     "Minitorch": "minitorch.html",
-    "A Sample Mesa Model": "sample_mesa_model.html",
-    "transformers": "transformers.html"
+    "A Sample Mesa Model": "sample_mesa_model.html"
   }
 }

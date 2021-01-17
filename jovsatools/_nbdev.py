@@ -40,6 +40,7 @@ modules = ["custom_pytorch_training.py",
            "function_approximation.py",
            "gdrive_activity_tracking.py",
            "minitorch.py",
+           "roc.py",
            "sample_mesa.py"]
 
 doc_url = "https://jovsa.github.io/jovsatools/"

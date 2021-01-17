@@ -40,11 +40,11 @@ entries:
       title: Minitorch
       url: minitorch.html
     - output: web,pdf
+      title: roc
+      url: roc.html
+    - output: web,pdf
       title: A Sample Mesa Model
       url: sample_mesa_model.html
-    - output: web,pdf
-      title: transformers
-      url: transformers.html
     output: web
     title: jovsatools
   output: web

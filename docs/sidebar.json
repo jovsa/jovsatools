@@ -11,7 +11,7 @@
     "Google Drive Activity Tacking Tools": "gdrive_activity_tracking.html",
     "Kelly Criterion": "kelly_criterion.html",
     "Minitorch": "minitorch.html",
-    "A Sample Mesa Model": "sample_mesa_model.html",
-    "transformers": "transformers.html"
+    "roc": "roc.html",
+    "A Sample Mesa Model": "sample_mesa_model.html"
   }
 }

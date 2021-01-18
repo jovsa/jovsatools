@@ -1,6 +1,7 @@
 {
   "jovsatools": {
     "Overview": "/",
+    "Clustering and Neighbour Lookups": "custering_and_neighbours.html",
     "Custom Pytorch Training": "custom_pytorch_training.html",
     "Custom Tensorflow Training": "custom_tf_training.html",
     "Customizing tf.fit()": "customizing_tf_fit.html",

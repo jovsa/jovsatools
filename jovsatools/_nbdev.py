@@ -32,7 +32,8 @@ index = {"generate_1d_data": "custom_pytorch_training.ipynb",
          "MoneyAgent": "sample_mesa_model.ipynb",
          "MoneyModel": "sample_mesa_model.ipynb"}
 
-modules = ["custom_pytorch_training.py",
+modules = ["custering_and_neighbours.py",
+           "custom_pytorch_training.py",
            "custom_tf_training.py",
            "customizing_tf_fit.py",
            "data_generator.py",

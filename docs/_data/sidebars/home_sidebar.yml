@@ -10,6 +10,9 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: Clustering and Neighbour Lookups
+      url: custering_and_neighbours.html
+    - output: web,pdf
       title: Custom Pytorch Training
       url: custom_pytorch_training.html
     - output: web,pdf

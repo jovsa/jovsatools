@@ -40,6 +40,9 @@ entries:
       title: Kelly Criterion
       url: kelly_criterion.html
     - output: web,pdf
+      title: Title
+      url: keras_for_researchers.html
+    - output: web,pdf
       title: Minitorch
       url: minitorch.html
     - output: web,pdf

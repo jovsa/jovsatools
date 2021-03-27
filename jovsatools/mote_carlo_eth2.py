@@ -13,10 +13,3 @@ import seaborn as sns
 from typing import Optional, List
 import pandas as pd
 import matplotlib.pyplot as plt
-
-# Cell
-stats.plot.box()
-plt.rcParams['figure.figsize'] = [30, 10]
-
-# Cell
-stats.describe()

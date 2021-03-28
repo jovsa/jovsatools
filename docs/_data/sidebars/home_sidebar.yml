@@ -47,7 +47,7 @@ entries:
       url: minitorch.html
     - output: web,pdf
       title: Monte Carlo on ETH2 Scenarios
-      url: mote_carlo_eth2.html
+      url: monte_carlo_eth2.html
     - output: web,pdf
       title: roc
       url: roc.html

@@ -31,6 +31,9 @@ entries:
       title: Dice Experiments
       url: dice_experiments.html
     - output: web,pdf
+      title: Factory Defect Statistics
+      url: factory_defect_statistics.html
+    - output: web,pdf
       title: Function Approximation
       url: function_approximation.html
     - output: web,pdf

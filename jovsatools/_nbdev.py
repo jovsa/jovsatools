@@ -42,6 +42,7 @@ modules = ["custering_and_neighbours.py",
            "function_approximation.py",
            "gdrive_activity_tracking.py",
            "minitorch.py",
+           "monte_carlo_eth2.py",
            "roc.py",
            "sample_mesa.py"]
 
